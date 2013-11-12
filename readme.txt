@@ -1,0 +1,83 @@
+=== WP Post to PDF Enhanced ===
+
+Contributors: Lewis Rosenthal
+Tags: pdf, post, posts, post to pdf
+Donate Link: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
+Requires at least: 2.7
+Tested up to: 3.7.1
+Stable tag: 1.0.0
+License: GPLv2
+WP Post to PDF Enhanced, based on WP Post to PDF by Neerav Dobaria, renders posts & pages as downloadable PDFs for archiving and/or printing.
+
+== Description ==
+
+WP Post to PDF Enhanced is based on the original WP post to PDF. It renders posts & pages as downloadable PDFs for archiving and/or printing.
+Configuration options are available for the presentation and placement of the PDF link/icon in the article, custom header image, included/excluded posts/pages, fonts for various sections (header, footer, article, etc.), caching of previously-rendered PDFs, and much more.
+It is possible to limit access to PDFs to registered users or present the link/icon to all visitors.
+WP Post to PDF Enhanced is completely self-contained, and does not rely on any third party to render PDFs; does not require any additional plugins, either.
+For detailed documentation visit http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/ .
+
+== Installation ==
+
+1. Upload to the "wp-post-to-pdf-enhanced" directory to `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Configure plugin
+
+== Frequently Asked Questions ==
+
+= I've been using the original WP Post to PDF plugin. How do I migrate my settings to WP Post to PDF Enhanced? =
+
+Presently, there is no automated way of migrating optioins from one plugin to the other.
+
+If you have database access, before installing WP Post to PDF Enhanced, create a new row in the wp_options table. Assign a unique option_id value, set the option_name to 'wpptopdfenh', and copy the contents of the wpptopdf option_value field to the new wpptopdfenh option_value field. You may need to edit any path references referencing /wp-post-to-pdf to /wp-post-to-pdf-enhanced.
+
+If you do not have database access, note all of the options you have set for WP Post to PDF before disabling/uninstalling it, so that you may re-enter them upon activating WP Post to PDF Enhanced.
+
+Be sure to copy any custom images from the /wp-post-to-pdf paths to /wp-post-to-pdf-enhanced paths (e.g., wp-content/uploads/wp-post-to-pdf-logo.png -> wp-content/uploads/wp-post-to-pdf-enhanced-logo.png).
+
+Finally, if you have used any manual placement tags for the PDF icon in your theme(s), you'll need to edit these manually (e.g., "<?php if (function_exists("wpptopdf_display_icon")) echo wpptopdfenh_display_icon();?>" needs to be edited to read "<?php if (function_exists("wpptopdfenh_display_icon")) echo wpptopdfenh_display_icon();?>").
+
+= Okay, I've tried WP Post to PDF Enhanced, but now I want to go back to WP Post to PDF. How do I do that? =
+
+None of your previous option settings in your WordPress database have been altered or removed. If you have moved any files from the original locations (instead of copying them), you'll need to move them back, and as per the last item above, if you have used any manual placement tags in your theme(s), you'll need to revert those changes.
+
+= I use the XYZ plugin, and I see that my content is not rendering as expected in the PDF. What's wrong? =
+
+WP Post to PDF Enhanced is a wrapper for the TCPDF library, which does all the heavy lifting. TCPDF does an admirable job of converting HTML to PDF, but it is very particular about the quality of the HTML being handed to it. Likely, there is a missing HTML tag which may be acceptable to most browsers (i.e., does not generate an error, and renders fine on-screen), but which is not entirely according to spec. The first suggestion is to check your code in the raw HTML editor in WordPress (not the visual editor). Look for odd things such as paragraph tags in the middle of table cells (common issue), missing alignment tags, etc.
+
+= My PDF is truncated/broken/missing pieces! What did you do?! =
+
+See the previous entry. Missing graphics and such are common symptoms of non-standard HTML preceding the image, causing TCPDF to simply stop processing the input data.
+
+= Where do I go to report a problem? =
+
+You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the official support page on my blog: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/ .
+
+= I'd like to donate, but you don't have a donation link that works! = 
+
+LOL! Indeed, that is presently the case. Please drop me a note via email, and we'll work things out: lgrosenthal [at] 2rosenthals [dot] com.
+
+== Screenshots ==
+
+== Changelog ==
+
+= 1.0.0 =
+
+* Initial public release; functionally equivalent to WP Post to PDF unofficial version 2.4.0.
+* Includes TCPDF 6.0.043, and all included fonts.
+* To-do: Allow limiting category list to just the first category; allow for relocating this to footer, left, right, center).
+* To-do: Allow limiting tag list to just the first tag; allow for relocating this to footer, left, right, center).
+* To-do: Fix HTML prior to rendering when extraneous tags cause annoying truncation of certain PDFs (tables, for example).
+* To-do: Fix image positioning to better respect the HTML layout.
+* To-do: Add option to move date and/or category to the footer, with left, right, or center alignment.
+* To-do: Add option to specify the separator in a list of categories & list of tags.
+* To-do: Add option to remove paragraph break between author, categories, tags, date (to format better and waste less vertical space).
+* To-do: Allow exception to site-wide image scaling factor via shortcode (and add other shortcodes as overrides for various options set in the admin panel).
+* To-do: Allow for custom css definitions to apply to PDF (note that this is highly dependent upon css support in TCPDF class; this to-do list item refers to the ability to enter such css in the admin panel, and not to any specific css support).
+* To-do: Add shortcode to set manual page breaks when rendering PDF.
+
+== Upgrade Notice ==
+
+= 1.0.0 =
+
+Initial public release.
