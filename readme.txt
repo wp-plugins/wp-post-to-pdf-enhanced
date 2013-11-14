@@ -7,7 +7,7 @@ Requires at least: 2.7
 Tested up to: 3.7.1
 Stable tag: 1.0.0
 License: GPLv2
-WP Post to PDF Enhanced, based on WP Post to PDF by Neerav Dobaria, renders posts & pages as downloadable PDFs for archiving and/or printing.
+WP Post to PDF Enhanced renders posts & pages as downloadable PDFs for archiving and/or printing.
 
 == Description ==
 
