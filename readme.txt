@@ -59,6 +59,13 @@ LOL! Indeed, that is presently the case. Please drop me a note via email, and we
 
 == Screenshots ==
 
+1. Main Options page
+2. Accessibility Options (include/exclude content types, posts, pages)
+3. Presentation Options (PDF icon appearance)
+4. PDF Formatting Options (output tuning; accommodate shortcodes from other plugins, what to include in the PDF header area, header image, fonts, etc.)
+5. Sample WordPress page; note PDF icon (top left positioning selected)
+6. Sample PDF (minimal header options; default fonts and sizes)
+
 == Changelog ==
 
 = 1.0.0 =
