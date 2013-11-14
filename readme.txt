@@ -7,7 +7,7 @@ Requires at least: 2.7
 Tested up to: 3.7.1
 Stable tag: 1.0.0
 License: GPLv2
-WP Post to PDF Enhanced, based on WP Post to PDF by Neerav Dobaria, renders posts & pages as downloadable PDFs for archiving and/or printing.
+WP Post to PDF Enhanced renders posts & pages as downloadable PDFs for archiving and/or printing.
 
 == Description ==
 
@@ -58,6 +58,13 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 LOL! Indeed, that is presently the case. Please drop me a note via email, and we'll work things out: lgrosenthal [at] 2rosenthals [dot] com.
 
 == Screenshots ==
+
+1. Main Options page
+2. Accessibility Options (include/exclude content types, posts, pages)
+3. Presentation Options (PDF icon appearance)
+4. PDF Formatting Options (output tuning; accommodate shortcodes from other plugins, what to include in the PDF header area, header image, fonts, etc.)
+5. Sample WordPress page; note PDF icon (top left positioning selected)
+6. Sample PDF (minimal header options; default fonts and sizes)
 
 == Changelog ==
 
