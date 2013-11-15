@@ -1,12 +1,14 @@
 === WP Post to PDF Enhanced ===
 
-Contributors: Lewis Rosenthal
-Tags: pdf, post, posts, post to pdf
+Contributors: LewisR
 Donate Link: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
+Tags: pdf, post, posts, post to pdf, tcpdf, printable, content, convert, stand-alone, stand alone, acrobat
 Requires at least: 2.7
 Tested up to: 3.7.1
 Stable tag: 1.0.0
 License: GPLv2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
 WP Post to PDF Enhanced renders posts & pages as downloadable PDFs for archiving and/or printing.
 
 == Description ==
@@ -15,7 +17,7 @@ WP Post to PDF Enhanced is based on the original WP post to PDF. It renders post
 Configuration options are available for the presentation and placement of the PDF link/icon in the article, custom header image, included/excluded posts/pages, fonts for various sections (header, footer, article, etc.), caching of previously-rendered PDFs, and much more.
 It is possible to limit access to PDFs to registered users or present the link/icon to all visitors.
 WP Post to PDF Enhanced is completely self-contained, and does not rely on any third party to render PDFs; does not require any additional plugins, either.
-For detailed documentation visit http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/ .
+For detailed documentation visit [the support page] http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/ .
 
 == Installation ==
 
@@ -29,13 +31,13 @@ For detailed documentation visit http://www.2rosenthals.net/wordpress/help/gener
 
 Presently, there is no automated way of migrating optioins from one plugin to the other.
 
-If you have database access, before installing WP Post to PDF Enhanced, create a new row in the wp_options table. Assign a unique option_id value, set the option_name to 'wpptopdfenh', and copy the contents of the wpptopdf option_value field to the new wpptopdfenh option_value field. You may need to edit any path references referencing /wp-post-to-pdf to /wp-post-to-pdf-enhanced.
+If you have database access, before installing WP Post to PDF Enhanced, create a new row in the `wp_options` table. Assign a unique `option_id` value, set the `option_name` to `wpptopdfenh`, and copy the contents of the `wpptopdf option_value` field to the new `wpptopdfenh option_value` field. You may need to edit any path references referencing `/wp-post-to-pdf` to `/wp-post-to-pdf-enhanced`.
 
 If you do not have database access, note all of the options you have set for WP Post to PDF before disabling/uninstalling it, so that you may re-enter them upon activating WP Post to PDF Enhanced.
 
-Be sure to copy any custom images from the /wp-post-to-pdf paths to /wp-post-to-pdf-enhanced paths (e.g., wp-content/uploads/wp-post-to-pdf-logo.png -> wp-content/uploads/wp-post-to-pdf-enhanced-logo.png).
+Be sure to copy any custom images from the `/wp-post-to-pdf` paths to `/wp-post-to-pdf-enhanced` paths (e.g., `wp-content/uploads/wp-post-to-pdf-logo.png -> wp-content/uploads/wp-post-to-pdf-enhanced-logo.png`).
 
-Finally, if you have used any manual placement tags for the PDF icon in your theme(s), you'll need to edit these manually (e.g., "<?php if (function_exists("wpptopdf_display_icon")) echo wpptopdfenh_display_icon();?>" needs to be edited to read "<?php if (function_exists("wpptopdfenh_display_icon")) echo wpptopdfenh_display_icon();?>").
+Finally, if you have used any manual placement tags for the PDF icon in your theme(s), you'll need to edit these manually (e.g., `<?php if (function_exists("wpptopdf_display_icon")) echo wpptopdfenh_display_icon();?>` needs to be edited to read `<?php if (function_exists("wpptopdfenh_display_icon")) echo wpptopdfenh_display_icon();?>`).
 
 = Okay, I've tried WP Post to PDF Enhanced, but now I want to go back to WP Post to PDF. How do I do that? =
 
@@ -52,10 +54,6 @@ See the previous entry. Missing graphics and such are common symptoms of non-sta
 = Where do I go to report a problem? =
 
 You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the official support page on my blog: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/ .
-
-= I'd like to donate, but you don't have a donation link that works! = 
-
-LOL! Indeed, that is presently the case. Please drop me a note via email, and we'll work things out: lgrosenthal [at] 2rosenthals [dot] com.
 
 == Screenshots ==
 
