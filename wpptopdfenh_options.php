@@ -66,9 +66,8 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                     display the PDF icon.</p>
             </td>
         </tr>
-
         <tr valign="top">
-            <th scope="row">Include/Exclude Posts/Pages</th>
+            <th scope="row">Include/Exclude</th>
             <td>
                 <input name="wpptopdfenh[include]"
                        value="0" <?php echo ($wpptopdfenhopts['include']) ? '' : 'checked="checked"'; ?>
@@ -82,42 +81,6 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
 
                 <p>Enter a list of comma-separated post/page IDs which you want to include/exclude from generating PDF content (show/hide PDF icon).<br/><span
                             class="wpptopdfenh-notice">To allow PDF content generation on all posts/pages, select "Exclude the following" and leave the textbox empty.</span></p>
-            </td>
-        </tr>
-
-        <tr valign="top">
-            <th scope="row">Include/Exclude Categories</th>
-            <td>
-                <input name="wpptopdfenh[includecats]"
-                       value="0" <?php echo ($wpptopdfenhopts['includecats']) ? '' : 'checked="checked"'; ?>
-                       type="radio"/> Exclude the following&nbsp;&nbsp;&nbsp;
-                <input name="wpptopdfenh[includecats]"
-                       value="1" <?php echo (isset($wpptopdfopts['includecats'])) ? 'checked="checked"' : ''; ?>
-                       type="radio"/> Include the following
-                <br/>
-                <input type="text" name="wpptopdfenh[excludeThisCat]"
-                       value="<?php echo ($wpptopdfenhopts['excludeThisCat']) ? $wpptopdfenhopts['excludeThisCat'] : ''; ?>"/>
-
-                <p>Enter a list of comma-separated category IDs which you want to include/exclude from generating PDF content (show/hide PDF icon). Note that inclusion/exclusion may be overridden using the Include/Exclude Posts/Pages options, above.<br/><span
-                            class="wpptopdfenh-notice">To allow PDF content generation in all categories, select "Exclude the following" and leave the textbox empty.</span></p>
-            </td>
-        </tr>
-
-        <tr valign="top">
-            <th scope="row">Include/Exclude Tags</th>
-            <td>
-                <input name="wpptopdfenh[includetags]"
-                       value="0" <?php echo ($wpptopdfenhopts['includetags']) ? '' : 'checked="checked"'; ?>
-                       type="radio"/> Exclude the following&nbsp;&nbsp;&nbsp;
-                <input name="wpptopdfenh[includetags]"
-                       value="1" <?php echo (isset($wpptopdfopts['includetags'])) ? 'checked="checked"' : ''; ?>
-                       type="radio"/> Include the following
-                <br/>
-                <input type="text" name="wpptopdfenh[excludeThisTag]"
-                       value="<?php echo ($wpptopdfenhopts['excludeThisTag']) ? $wpptopdfenhopts['excludeThisTag'] : ''; ?>"/>
-
-                <p>Enter a list of comma-separated tags which you want to include/exclude from generating PDF content (show/hide PDF icon). Note that inclusion/exclusion may be overridden using the Include/Exclude Posts/Pages options, above.<br/><span
-                            class="wpptopdfenh-notice">To allow PDF content generation in all categories, select "Exclude the following" and leave the textbox empty.</span></p>
             </td>
         </tr>
 
