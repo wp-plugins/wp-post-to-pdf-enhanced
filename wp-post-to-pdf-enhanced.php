@@ -462,7 +462,34 @@ if (!class_exists('wpptopdfenh')) {
             return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . get_permalink($post->ID) . $qst . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
         }
 
-        function on_activate()
+        function display_shortcode_icon()
+        {
+            // return nothing if no permission
+            if (isset($this->options['nonPublic']) and !is_user_logged_in())
+                return;
+
+            if (isset($this->options['onSingle']) and !(is_single() or is_page()))
+                return;
+
+            // remove icon from PDF file
+            if ('pdf' == (isset($_GET['format']) ? $_GET['format'] : null)){
+                return;
+            }
+
+            global $post;
+
+            // Change querystring separator for those who do not have pretty URL enabled
+            $qst = get_permalink($post->ID);
+            $qst = parse_url($qst);
+            if (isset($qst['query']))
+                $qst = '&format=pdf';
+            else
+                $qst = '?format=pdf';
+
+            return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . get_permalink($post->ID) . $qst . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+        }
+
+       function on_activate()
         {
             // set default options on activate
             $default = array(
@@ -518,5 +545,20 @@ if (!class_exists('wpptopdfenh')) {
             //$wpptopdfenh = new wpptopdfenh();
             return $wpptopdfenh->display_icon();
         }
+    }      
+    if(!function_exists('wpptopdfenh_display_shortcode_icon')){
+        function wpptopdfenh_display_shortcode_icon()
+        {
+            global $wpptopdfenh;
+            //$wpptopdfenh = new wpptopdfenh();
+            return $wpptopdfenh->display_shortcode_icon();
+        }
+
+    /**
+     * Include shortcode file
+     *
+     */
+    include(WPPT0PDFENH_PATH . '/wpptopdfenh_shortcodes.php');
+
     }
 }

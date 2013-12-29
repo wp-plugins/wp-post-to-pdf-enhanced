@@ -66,6 +66,13 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 == Changelog ==
 
+= 1.0.1 =
+
+* Implemented basic shortcode ([wpptopdfenh]) to allow placement of PDF icon on demand. Shortcode observes display options for public/non-public and single page only, so excluding the main icon from the page will still allow shortcode to display the icon.
+* To-do: Allow different icon for shortcode.
+* To-do: Allow arguments for shortcodes (fonts and other options).
+* To-do: Implement additional shortcodes for PDF formatting (e.g., set manual page breaks when rendering PDF).
+
 = 1.0.0 =
 
 * Initial public release; functionally equivalent to WP Post to PDF unofficial version 2.4.0.
