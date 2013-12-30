@@ -124,12 +124,18 @@ if (!class_exists('wpptopdfenh')) {
 
                 global $post;
 
-                $include = $this->options['include'];
-                $excludeThis = explode(',', $this->options['excludeThis']);
-                if ($include and !in_array($post->ID, $excludeThis))
-                    return false;
-                if (!$include and in_array($post->ID, $excludeThis))
-                    return false;
+            $post = get_post($id);{
+
+                if( has_shortcode( $content, 'wpptopdfenh' ) ) {
+
+                    $include = $this->options['include'];
+                    $excludeThis = explode(',', $this->options['excludeThis']);
+                    if ($include and !in_array($post->ID, $excludeThis))
+                        return false;
+                    if (!$include and in_array($post->ID, $excludeThis))
+                        return false;
+                    }
+                }
 
 	            $filePath = WPPT0PDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
                 $fileMime = 'pdf';
@@ -246,10 +252,14 @@ if (!class_exists('wpptopdfenh')) {
 
         function generate_pdf_file($id, $forceDownload = false)
         {
-            $post = get_post($id);
+            $post = get_post($id);{
 
-            if (!$this->options[$post->post_type])
-                return false;
+                if( has_shortcode( $content, 'wpptopdfenh' ) ) {
+
+                    if (!$this->options[$post->post_type])
+                        return false;
+                    }
+                }
 
             // require_once(WPPT0PDFENH_PATH . '/tcpdf/config/lang/eng.php');
 			// to avoid duplicate function error
