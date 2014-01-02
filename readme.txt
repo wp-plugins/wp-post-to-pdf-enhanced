@@ -70,6 +70,7 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 * Implemented basic shortcode ([wpptopdfenh]) to allow placement of PDF icon on demand. Shortcode observes display options for public/non-public and single page only, so excluding the main icon from the page will still allow shortcode to display the icon.
 * Implemented shortcode ([wpptopdfenh_break]) to set manual page breaks within PDF.
+* Fix: Commented some code which was wrapping div tags around all images, forcing centering (likely this has become unnecessary with recent versions of TCPDF). Images should now render where positioned in the post/page.
 * To-do: Allow different icon for shortcode.
 * To-do: Allow arguments for shortcodes (fonts and other options).
 * To-do: Implement additional shortcodes for PDF formatting.

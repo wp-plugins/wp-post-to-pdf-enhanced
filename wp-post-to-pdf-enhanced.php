@@ -371,7 +371,7 @@ if (!class_exists('wpptopdfenh')) {
                 }
             }
 
-            // Display date is set in config
+            // Display date if set in config
             if ($this->options['postDate']){
                 $date = get_the_date($post->the_date);
                 $html .= '<p><strong>Date : </strong>'.$date.'</p>';
@@ -388,10 +388,11 @@ if (!class_exists('wpptopdfenh')) {
             $dom = new simple_html_dom();
             $dom->load($html);
 
-            foreach($dom->find('img') as $e){
-                $e->align = null;
-                $e->outertext = '<div style="text-align:center;">' . $e->outertext . '</div>';
-            }
+            // Deprecated (I think) with newer versions of TCPDF. Uncommenting this results in all images centered.
+            //foreach($dom->find('img') as $e){
+                //$e->align = null;
+                //$e->outertext = '<div style="text-align:center;">' . $e->outertext . '</div>';
+            //}
 
             $html = $dom->save();
 
@@ -415,7 +416,7 @@ if (!class_exists('wpptopdfenh')) {
 
         function add_button($content)
         {
-            // If manual is selected, let user decide where to add button
+            // If manual is selected, let user decide where to add button; note that this is irrespective of shortcode
             if ('manual' == $this->options['iconPosition'])
                 return $content;
 
@@ -472,6 +473,7 @@ if (!class_exists('wpptopdfenh')) {
             return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . get_permalink($post->ID) . $qst . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
         }
 
+        // If the icon shortcode is used, render the icon where positioned in the body (the icon is invisible in the resulting PDF).
         function display_shortcode_icon()
         {
             // return nothing if no permission
@@ -556,11 +558,11 @@ if (!class_exists('wpptopdfenh')) {
             return $wpptopdfenh->display_icon();
         }
     }      
+    // Regardless the setting in config, if the shortcode is present, we want to render the icon.
     if(!function_exists('wpptopdfenh_display_shortcode_icon')){
         function wpptopdfenh_display_shortcode_icon()
         {
             global $wpptopdfenh;
-            //$wpptopdfenh = new wpptopdfenh();
             return $wpptopdfenh->display_shortcode_icon();
         }
 
