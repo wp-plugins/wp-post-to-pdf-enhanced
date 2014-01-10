@@ -388,11 +388,11 @@ if (!class_exists('wpptopdfenh')) {
             $dom = new simple_html_dom();
             $dom->load($html);
 
-            // Deprecated (I think) with newer versions of TCPDF. Uncommenting this results in all images centered.
-            //foreach($dom->find('img') as $e){
-                //$e->align = null;
-                //$e->outertext = '<div style="text-align:center;">' . $e->outertext . '</div>';
-            //}
+            // Try to respect alignment of images
+            foreach($dom->find('img') as $e){
+                $e->align = null;
+                $e->outertext = '<div>' . $e->outertext . '</div>';
+            }
 
             $html = $dom->save();
 
