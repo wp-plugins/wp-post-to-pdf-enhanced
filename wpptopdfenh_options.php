@@ -73,7 +73,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                        value="0" <?php echo ($wpptopdfenhopts['include']) ? '' : 'checked="checked"'; ?>
                        type="radio"/> Exclude the following&nbsp;&nbsp;&nbsp;
                 <input name="wpptopdfenh[include]"
-                       value="1" <?php echo (isset($wpptopdfopts['include'])) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo (isset($wpptopdfenhopts['include'])) ? 'checked="checked"' : ''; ?>
                        type="radio"/> Include the following
                 <br/>
                 <input type="text" name="wpptopdfenh[excludeThis]"
@@ -91,7 +91,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                        value="0" <?php echo ($wpptopdfenhopts['includeCache']) ? '' : 'checked="checked"'; ?>
                        type="radio"/> Exclude the following&nbsp;&nbsp;&nbsp;
                 <input name="wpptopdfenh[includeCache]"
-                       value="1" <?php echo ($wpptopdfenhopts['includeCache']) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo (isset($wpptopdfenhopts['includeCache'])) ? 'checked="checked"' : ''; ?>
                        type="radio"/> Include the following
                 <br/>
                 <input type="text" name="wpptopdfenh[excludeThisCache]"
@@ -292,7 +292,10 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
         <?php $fonts = array(
 	    'Al Arabiya' => 'aealarabiya',
 	    'Furat' => 'aefurat',
-	    'Arial Unicode' => 'arialunicid0',
+	    'Arial' => 'helvetica',
+	    'Arial Bold' => 'helveticab',
+	    'Arial Bold Italic' => 'helveticabi',
+	    'Arial Italic' => 'helveticai',
 	    'Courier' => 'courier',
 	    'Courier Bold' => 'courierb',
 	    'Courier Bold Italic' => 'courierbi',
@@ -334,10 +337,31 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
 	    'Helvetica Bold' => 'helveticab',
 	    'Helvetica Bold Italic' => 'helveticabi',
 	    'Helvetica Italic' => 'helveticai',
+	    'Kozuka Gothic Pro (Japanese Sans-Serif)' => 'kozgopromedium',
+	    'Kozuka Mincho Pro (Japanese Serif)' => 'kozminproregular',
+	    'MSung Light (Trad. Chinese)' => 'msungstdlight',
+	    'MyungJo Medium (Korean)' => 'hysmyeongjostdmedium',
+	    'PDF/A Courier' => 'pdfacourier',
+	    'PDF/A Courier Bold' => 'pdfacourierb',
+	    'PDF/A Courier Bold Italic' => 'pdfacourierbi',
+	    'PDF/A Courier Italic' => 'pdfacourieri',
+	    'PDF/A Helvetica' => 'pdfahelvetica',
+	    'PDF/A Helvetica Bold' => 'pdfahelveticab',
+	    'PDF/A Helvetica Bold Italic' => 'pdfahelveticabi',
+	    'PDF/A Helvetica Italic' => 'pdfahelveticai',
+	    'PDF/A Symbol' => 'pdfasymbol',
+	    'PDF/A Times Roman' => 'pdfatimes',
+	    'PDF/A Times Bold' => 'pdfatimesb',
+	    'PDF/A Times Bold Italic' => 'pdfatimesbi',
+	    'PDF/A Times Italic' => 'pdfatimesi',
+	    'PDF/A ZapfDingbats' => 'pdfazapfdingbats',
+	    'STSong Light (Simp. Chinese)' => 'stsongstdlight',
+	    'Symbol' => 'symbol',
 	    'Times Roman' => 'times',
 	    'Times Bold' => 'timesb',
 	    'Times Bold Italic' => 'timesbi',
-	    'Times Italic' => 'timesi'
+	    'Times Italic' => 'timesi',
+	    'ZapfDingbats' => 'zapfdingbats'
 	    ); ?>
         <tr valign="top">
             <th scope="row">Header Font</th>

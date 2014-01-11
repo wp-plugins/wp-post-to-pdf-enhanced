@@ -51,6 +51,10 @@ WP Post to PDF Enhanced is a wrapper for the TCPDF library, which does all the h
 
 See the previous entry. Missing graphics and such are common symptoms of non-standard HTML preceding the image, causing TCPDF to simply stop processing the input data.
 
+= Non-English characters (Cyrillic, etc.) are shown as "?" in the PDF. What's wrong?
+
+The default fonts used are Helvetica, which is not a Unicode font. To avoid downloading the entire font package (such as a DejaVu font), try Arial Unicode. You may set this in the options panel, under PDF Formatting Options.
+
 = Where do I go to report a problem? =
 
 You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the official support page on my blog: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/ .
@@ -70,7 +74,10 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 * Implemented basic shortcode ([wpptopdfenh]) to allow placement of PDF icon on demand. Shortcode observes display options for public/non-public and single page only, so excluding the main icon from the page will still allow shortcode to display the icon.
 * Implemented shortcode ([wpptopdfenh_break]) to set manual page breaks within PDF.
-* Fix: Commented some code which was wrapping div tags around all images, forcing centering (likely this has become unnecessary with recent versions of TCPDF). Images should now render where positioned in the post/page.
+* Added note to FAQ concerning non-Unicode fonts and non-English characters.
+* Fix: Modified some code which was wrapping div tags around all images, forcing text centering Images should now render where positioned in the post/page.
+* Fix: When include/exclude dialogs are both set to include, and no entries present, radio button for post/page include/exclude is deselected (Issue #43).
+* Fix: Corrected Arial -> Helvetica core font mapping (use DejaVu for Unicode); added several missing fonts to admin dropdown.
 * To-do: Allow different icon for shortcode.
 * To-do: Allow arguments for shortcodes (fonts and other options).
 * To-do: Implement additional shortcodes for PDF formatting.
