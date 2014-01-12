@@ -75,12 +75,14 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Implemented basic shortcode ([wpptopdfenh]) to allow placement of PDF icon on demand. Shortcode observes display options for public/non-public and single page only, so excluding the main icon from the page will still allow shortcode to display the icon.
 * Implemented shortcode ([wpptopdfenh_break]) to set manual page breaks within PDF.
 * Added note to FAQ concerning non-Unicode fonts and non-English characters.
+* Added ability to add global css. This is stored in the db.
 * Fix: Modified some code which was wrapping div tags around all images, forcing text centering Images should now render where positioned in the post/page.
 * Fix: When include/exclude dialogs are both set to include, and no entries present, radio button for post/page include/exclude is deselected (Issue #43).
 * Fix: Corrected Arial -> Helvetica core font mapping (use DejaVu for Unicode); added several missing fonts to admin dropdown.
 * To-do: Allow different icon for shortcode.
 * To-do: Allow arguments for shortcodes (fonts and other options).
 * To-do: Implement additional shortcodes for PDF formatting.
+* To-do: Allow shortcode to specify a stylesheet to apply/override global css.
 
 = 1.0.0 =
 

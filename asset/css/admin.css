@@ -51,6 +51,14 @@ div.wpptopdfenh-option-body {
     width: 500px;
 }
 
+textarea#customCssSrc, textarea#imageIconSrc{
+    width: 100% !important;
+}
+
+textarea#customCssSrc{
+    height: 250px !important;
+}
+
 div.wpptopdfenh-notice, div.wpptopdfenh-info {
     margin:15px 0 0;
 	padding: 20px;
