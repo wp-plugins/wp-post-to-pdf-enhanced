@@ -291,6 +291,8 @@ if (!class_exists('wpptopdfenh')) {
             // Process shortcodes if selected
             if ($this->options['processShortcodes'])
                 $post->post_content = do_shortcode($post->post_content);
+            else
+                $post->post_content = strip_shortcodes($post->post_content);
 
             // set document information
             $pdf->SetCreator('WP Post to PDF Enhanced plugin by Lewis Rosenthal (http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/) with ' . PDF_CREATOR);

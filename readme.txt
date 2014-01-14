@@ -80,10 +80,12 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Fix: Modified some code which was wrapping div tags around all images, forcing text centering Images should now render where positioned in the post/page.
 * Fix: When include/exclude dialogs are both set to include, and no entries present, radio button for post/page include/exclude is deselected (Issue #43).
 * Fix: Corrected Arial -> Helvetica core font mapping (use DejaVu for Unicode); added several missing fonts to admin dropdown.
+* Fix: When Process Shortcodes is not selected, strip shortcodes from content, so as not to render things like "[shortcode]".
 * To-do: Allow different icon for shortcode.
 * To-do: Allow arguments for shortcodes (fonts and other options).
 * To-do: Implement additional shortcodes for PDF formatting.
 * To-do: Allow shortcode to specify a stylesheet to apply/override global css.
+* To-do: Implement filter to strip shortcodes (when Process Shortcodes is deselected) /except/ for our shortcodes.
 
 = 1.0.0 =
 
