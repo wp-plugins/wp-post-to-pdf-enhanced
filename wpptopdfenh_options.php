@@ -76,7 +76,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                        value="1" <?php echo (isset($wpptopdfenhopts['include'])) ? 'checked="checked"' : ''; ?>
                        type="radio"/> Include the following
                 <br/>
-                <input type="text" name="wpptopdfenh[excludeThis]"
+                <input type="text" name="wpptopdfenh[excludeThis]" id="wpptopdfenh[excludeThis]"
                        value="<?php echo ($wpptopdfenhopts['excludeThis']) ? $wpptopdfenhopts['excludeThis'] : ''; ?>"/>
 
                 <p>Enter a list of comma-separated post/page IDs which you want to include/exclude from generating PDF content (show/hide PDF icon).<br/><span
@@ -94,7 +94,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                        value="1" <?php echo (isset($wpptopdfenhopts['includeCache'])) ? 'checked="checked"' : ''; ?>
                        type="radio"/> Include the following
                 <br/>
-                <input type="text" name="wpptopdfenh[excludeThisCache]"
+                <input type="text" name="wpptopdfenh[excludeThisCache]" id="wpptopdfenh[excludeThisCache]"
                        value="<?php echo ($wpptopdfenhopts['excludeThisCache']) ? $wpptopdfenhopts['excludeThisCache'] : ''; ?>"/>
 
                 <p>Enter a list of comma-separated post/page IDs for which you want to disable PDF caching.
@@ -244,7 +244,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
         <tr valign="top">
             <th scope="row">Image Scaling</th>
             <td>
-                <input type="text" name="wpptopdfenh[imageScale]"
+                <input type="text" name="wpptopdfenh[imageScale]" id="wpptopdfenh[imageScale]"
                        value="<?php echo ($wpptopdfenhopts['imageScale']) ? $wpptopdfenhopts['imageScale'] : '1.25'; ?>"/>
 
                 <p>Enter your desired image scaling factor as a decimal (default is 1.25).</p>
@@ -289,26 +289,6 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                 <?php } ?>
             </td>
         </tr>
-        <tr valign="top">
-            <th scope="row">Custom CSS</th>
-            <td>
-                <input name="wpptopdfenh[applyCSS]"
-                       value="1" <?php echo (isset($wpptopdfenhopts['applyCSS'])) ? 'checked="checked"' : ''; ?>
-                       type="checkbox"/>
-
-                <p>Select if you would like to apply a custom css to all PDFs generated.</p>
-            </td>
-        </tr>
-        <tr valign="top">
-            <th scope="row"></th>
-            <td>
-                <textarea id="customCssSrc"
-                          name="wpptopdfenh[customCss]"><?php echo ($wpptopdfenhopts['customCss']) ? $wpptopdfenhopts['customCss'] : '' ?></textarea>
-
-                <p>Use the editor above to create or edit custom css to be applied to all PDFs.</p>
-            </td>
-        </tr>
-
         <?php $fonts = array(
 	    'Al Arabiya' => 'aealarabiya',
 	    'Furat' => 'aefurat',
@@ -401,7 +381,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
         <tr valign="top">
             <th scope="row">Header Font Size</th>
             <td>
-                <input type="text" name="wpptopdfenh[headerFontSize]"
+                <input type="text" name="wpptopdfenh[headerFontSize]" id="wpptopdfenh[headerFontSize]"
                        value="<?php echo ($wpptopdfenhopts['headerFontSize']) ? $wpptopdfenhopts['headerFontSize'] : '10'; ?>"/>
 
                 <p>Enter the font size for header.</p>
@@ -425,7 +405,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
         <tr valign="top">
             <th scope="row">Footer Font Size</th>
             <td>
-                <input type="text" name="wpptopdfenh[footerFontSize]"
+                <input type="text" name="wpptopdfenh[footerFontSize]" id="wpptopdfenh[footerFontSize]"
                        value="<?php echo ($wpptopdfenhopts['footerFontSize']) ? $wpptopdfenhopts['footerFontSize'] : '10'; ?>"/>
 
                 <p>Enter the font size for the footer.</p>
@@ -449,7 +429,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
         <tr valign="top">
             <th scope="row">Content Font Size</th>
             <td>
-                <input type="text" name="wpptopdfenh[contentFontSize]"
+                <input type="text" name="wpptopdfenh[contentFontSize]" id="wpptopdfenh[contentFontSize]"
                        value="<?php echo ($wpptopdfenhopts['contentFontSize']) ? $wpptopdfenhopts['contentFontSize'] : '12'; ?>"/>
 
                 <p>Enter the font size for the main content.</p>

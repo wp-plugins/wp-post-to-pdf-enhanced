@@ -51,12 +51,16 @@ div.wpptopdfenh-option-body {
     width: 500px;
 }
 
-textarea#customCssSrc, textarea#imageIconSrc{
+textarea#customCssSrc, textarea#imageIconSrc, input#wpptopdfenh\[excludeThis\], input#wpptopdfenh\[excludeThisCache\]{
     width: 100% !important;
 }
 
 textarea#customCssSrc{
     height: 250px !important;
+}
+
+input#wpptopdfenh\[imageScale\], input#wpptopdfenh\[headerFontSize\], input#wpptopdfenh\[footerFontSize\], input#wpptopdfenh\[contentFontSize\]{
+    width: 50px !important;
 }
 
 div.wpptopdfenh-notice, div.wpptopdfenh-info {

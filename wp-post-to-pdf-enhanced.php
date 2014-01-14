@@ -338,14 +338,8 @@ if (!class_exists('wpptopdfenh')) {
             // Add a page
             // This method has several options, check the source code documentation for more information.
             $pdf->AddPage();
-            
-            // Apply global css, if set in config
-            if ($this->options['applyCSS']){
-	        $html .= '<style>'.$this->options['customCss'].'</style>';
-	        }
-
-	    // Set some content to print
-            $html .= '<h1>' . html_entity_decode($post->post_title, ENT_QUOTES) . '</h1>';
+            // Set some content to print
+            $html = '<h1>' . html_entity_decode($post->post_title, ENT_QUOTES) . '</h1>';
 
             // Display author name is set in config
             if ($this->options['authorDetail']){
@@ -531,7 +525,7 @@ if (!class_exists('wpptopdfenh')) {
                 add_option('wpptopdfenh', $default);
             }
 
-            // create directories and move logo to upload directory
+            // create directory and move logo to upload directory
             if (!is_dir(WP_CONTENT_DIR . '/uploads'))
                 mkdir(WP_CONTENT_DIR . '/uploads');
             if (!file_exists(WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png'))

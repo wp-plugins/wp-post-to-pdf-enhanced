@@ -76,6 +76,7 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Implemented shortcode ([wpptopdfenh_break]) to set manual page breaks within PDF.
 * Added note to FAQ concerning non-Unicode fonts and non-English characters.
 * Added ability to add global css. This is stored in the db.
+* Resized input fields and textareas in admin panel.
 * Fix: Modified some code which was wrapping div tags around all images, forcing text centering Images should now render where positioned in the post/page.
 * Fix: When include/exclude dialogs are both set to include, and no entries present, radio button for post/page include/exclude is deselected (Issue #43).
 * Fix: Corrected Arial -> Helvetica core font mapping (use DejaVu for Unicode); added several missing fonts to admin dropdown.
