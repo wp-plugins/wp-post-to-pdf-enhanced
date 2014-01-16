@@ -59,7 +59,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
             <th scope="row">Only on Single</th>
             <td>
                 <input name="wpptopdfenh[onSingle]"
-                       value="1" <?php echo ($wpptopdfenhopts['onSingle']) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo (isset($wpptopdfenhopts['onSingle'])) ? 'checked="checked"' : ''; ?>
                        type="checkbox"/>
 
                 <p>Select if you want to display the PDF icon only on a single page. If selected, the front page will not

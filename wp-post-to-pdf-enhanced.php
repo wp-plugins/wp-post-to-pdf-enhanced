@@ -32,7 +32,8 @@ if (!function_exists('add_action')) {
 global $blog_id;
 define('WPPT0PDF_NAME', 'WP Post to PDF Enhanced');
 define('WPPT0PDFENH_SNAME', 'wpptopdfenh');
-define('WPPT0PDFENH_PATH', WP_PLUGIN_DIR . '/wp-post-to-pdf-enhanced');
+if (!defined('WPPT0PDFENH_PATH'))
+    define('WPPT0PDFENH_PATH', WP_PLUGIN_DIR . '/wp-post-to-pdf-enhanced');
 define('WPPT0PDFENH_URL', WP_PLUGIN_URL . '/wp-post-to-pdf-enhanced');
 define('WPPT0PDFENH_BASENAME', plugin_basename(__FILE__));
 define('WPPT0PDFENH_CACHE_DIR', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache/' . $blog_id);
@@ -119,12 +120,13 @@ if (!class_exists('wpptopdfenh')) {
         function generate_pdf()
         {
             if ('pdf' == (isset($_GET['format']) ? $_GET['format'] : null)) {
-                if ($this->options['nonPublic'] and !is_user_logged_in())
+                if (isset($this->options['nonPublic']) and !is_user_logged_in())
                     return false;
 
                 global $post;
 
-            $post = get_post($id);{
+            $post = get_post();
+            $content = $post->the_content;{
 
                 if( has_shortcode( $content, 'wpptopdfenh' ) ) {
 
@@ -252,7 +254,8 @@ if (!class_exists('wpptopdfenh')) {
 
         function generate_pdf_file($id, $forceDownload = false)
         {
-            $post = get_post($id);{
+            $post = get_post();
+            $content = $post->the_content;{
 
                 if( has_shortcode( $content, 'wpptopdfenh' ) ) {
 
@@ -283,13 +286,13 @@ if (!class_exists('wpptopdfenh')) {
                 }
 
             // Let other filter modify content if selected
-            if ($this->options['otherPlugin'])
+            if (isset($this->options['otherPlugin']))
                 $post->post_content = apply_filters('the_content', $post->post_content);
             else
                 $post->post_content = wpautop($post->post_content);
 
             // Process shortcodes if selected
-            if ($this->options['processShortcodes'])
+            if (isset($this->options['processShortcodes']))
                 $post->post_content = do_shortcode($post->post_content);
             else
                 $post->post_content = strip_shortcodes($post->post_content);
@@ -300,7 +303,7 @@ if (!class_exists('wpptopdfenh')) {
             $pdf->SetTitle($post->post_title);
 
             // Count width of logo for better presentation
-            if ($this->options['headerlogoImage']){
+            if (isset($this->options['headerlogoImage'])){
                 $logo = (PDF_HEADER_LOGO);
                 $logodata = getimagesize(PDF_HEADER_LOGO);
                 $logowidth = (int)((14 * $logodata[0]) / $logodata[1]);
@@ -344,21 +347,21 @@ if (!class_exists('wpptopdfenh')) {
             $html = '<h1>' . html_entity_decode($post->post_title, ENT_QUOTES) . '</h1>';
 
             // Display author name is set in config
-            if ($this->options['authorDetail']){
+            if (isset($this->options['authorDetail'])){
                 $author = get_the_author_meta($this->options['authorDetail'], $post->post_author);
                 $html .= '<p><strong>Author : </strong>'.$author.'</p>';
             }
 
             // Display category list is set in config
-            if ($this->options['postCategories']){
+            if (isset($this->options['postCategories'])){
+                $categories = get_the_category_list(', ', '', $post);
                 if ($categories) {
-                    $categories = get_the_category_list(', ', '', $post);
                     $html .= '<p><strong>Categories : </strong>'.$categories.'</p>';
                 }
             }
 
             // Display tag list is set in config
-            if ($this->options['postTags']){
+            if (isset($this->options['postTags'])){
                 $tags = get_the_tags($post->the_tags);
                 if ($tags) {
                     $html .= '<p><strong>Tagged as : </strong>';
@@ -374,13 +377,13 @@ if (!class_exists('wpptopdfenh')) {
             }
 
             // Display date if set in config
-            if ($this->options['postDate']){
+            if (isset($this->options['postDate'])){
                 $date = get_the_date($post->the_date);
                 $html .= '<p><strong>Date : </strong>'.$date.'</p>';
             }
 
             // Display featured image if set in config and post/page
-            if ($this->options['featuredImage']){
+            if (isset($this->options['featuredImage'])){
                 if(has_post_thumbnail($post->ID)){
                     $html .= get_the_post_thumbnail($post->ID);
                 }
@@ -538,7 +541,7 @@ if (!class_exists('wpptopdfenh')) {
 
         function on_pre_post_update($id)
         {
-            $post = get_post($id);
+            $post = get_post();
             $filePath = WPPT0PDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
             if (file_exists($filePath))
                 unlink($filePath);

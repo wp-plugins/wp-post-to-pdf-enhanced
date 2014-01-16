@@ -81,11 +81,17 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Fix: When include/exclude dialogs are both set to include, and no entries present, radio button for post/page include/exclude is deselected (Issue #43).
 * Fix: Corrected Arial -> Helvetica core font mapping (use DejaVu for Unicode); added several missing fonts to admin dropdown.
 * Fix: When Process Shortcodes is not selected, strip shortcodes from content, so as not to render things like "[shortcode]".
+* Fix: Cleaned up some code to resolve undefined index and variable notices, as well as constant WPPT0PDFENH_PATH already defined notice.
 * To-do: Allow different icon for shortcode.
 * To-do: Allow arguments for shortcodes (fonts and other options).
 * To-do: Implement additional shortcodes for PDF formatting.
 * To-do: Allow shortcode to specify a stylesheet to apply/override global css.
 * To-do: Implement filter to strip shortcodes (when Process Shortcodes is deselected) /except/ for our shortcodes.
+* To-do: Work around html entity constant ENT_HTML401, added in PHP 5.4, but not present earlier (this throws an undefined warning in PHP 5.3).
+* To-do: Fix "Cannot modify header information - headers already sent by" warning.
+* To-do: Add option to change formatting of tags & categories from links to plain text.
+* To-do: Add option to move information currently available to add to header area to footer area.
+* To-do: Add option to include custom fields in header/footer.
 
 = 1.0.0 =
 
