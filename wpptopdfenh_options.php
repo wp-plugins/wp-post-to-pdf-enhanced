@@ -242,12 +242,12 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
             </td>
         </tr>
         <tr valign="top">
-            <th scope="row">Image Scaling</th>
+            <th scope="row">Image Scaling Ratio</th>
             <td>
                 <input type="text" name="wpptopdfenh[imageScale]" id="wpptopdfenh[imageScale]"
                        value="<?php echo ($wpptopdfenhopts['imageScale']) ? $wpptopdfenhopts['imageScale'] : '1.25'; ?>"/>
 
-                <p>Enter your desired image scaling factor as a decimal (default is 1.25).</p>
+                <p>Enter your desired image scaling ratio as a decimal (default is 1.25). This represents the relative size of the image in the browser vs the size of the image in the PDF. Thus, 1.25 yields a 1.25:1 scale of web:PDF.</p>
             </td>
         </tr>
         <tr valign="top">
@@ -289,6 +289,17 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                 <?php } ?>
             </td>
         </tr>
+        <tr valign="top">
+            <th scope="row">Header Logo Image Factor</th>
+            <td>
+                <input type="text" name="wpptopdfenh[headerlogoImageFactor]" id="wpptopdfenh[headerlogoImageFactor]"
+                       value="<?php echo ($wpptopdfenhopts['headerlogoImageFactor']) ? $wpptopdfenhopts['headerlogoImageFactor'] : '14'; ?>"/>
+
+                <p>Enter your desired factor to be applied to the logo (default is 14). This is applied to logo width/logo height, to provide space around the logo image. It <em>will</em> adjust the overall size of the logo as well as the surrounding space.</p>
+            </td>
+        </tr>
+
+
         <tr valign="top">
             <th scope="row">Custom CSS</th>
             <td>

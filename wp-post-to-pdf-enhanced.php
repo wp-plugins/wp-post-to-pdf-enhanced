@@ -306,8 +306,12 @@ if (!class_exists('wpptopdfenh')) {
             if (isset($this->options['headerlogoImage'])){
                 $logo = (PDF_HEADER_LOGO);
                 $logodata = getimagesize(PDF_HEADER_LOGO);
-                $logowidth = (int)((14 * $logodata[0]) / $logodata[1]);
-                }
+                if (isset($this->options['headerlogoImageFactor'])){
+                    $logowidth = (int)((($this->options['headerlogoImageFactor']) * $logodata[0]) / $logodata[1]);
+                    }else{
+                    $logowidth = (int)((14 * $logodata[0]) / $logodata[1]);
+		    }
+		}
 
             //$pdf->SetSubject('TCPDF Tutorial');
             //$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
@@ -518,6 +522,7 @@ if (!class_exists('wpptopdfenh')) {
                     'iconPosition' => 'before',
                     'iconLeftRight' => 'left',
                     'imageIcon' => '<img alt="Download PDF" src="' . WPPT0PDFENH_URL . '/asset/images/pdf.png">',
+                    'headerlogoImageFactor' => 14,
                     'imageScale' => 1.25,
                     'headerAllPages' => 0,
                     'headerFont' => 'helvetica',

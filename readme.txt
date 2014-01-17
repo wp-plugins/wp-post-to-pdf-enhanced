@@ -76,6 +76,7 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Implemented shortcode ([wpptopdfenh_break]) to set manual page breaks within PDF.
 * Added note to FAQ concerning non-Unicode fonts and non-English characters.
 * Added ability to add global css. This is stored in the db.
+* Added option to specify the logo image padding/size factor (default is 14).
 * Resized input fields and textareas in admin panel.
 * Fix: Modified some code which was wrapping div tags around all images, forcing text centering Images should now render where positioned in the post/page.
 * Fix: When include/exclude dialogs are both set to include, and no entries present, radio button for post/page include/exclude is deselected (Issue #43).
@@ -89,9 +90,10 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * To-do: Implement filter to strip shortcodes (when Process Shortcodes is deselected) /except/ for our shortcodes.
 * To-do: Work around html entity constant ENT_HTML401, added in PHP 5.4, but not present earlier (this throws an undefined warning in PHP 5.3).
 * To-do: Fix "Cannot modify header information - headers already sent by" warning.
+* To-do: Fix (once and for all) image alignment issues.
 * To-do: Add option to change formatting of tags & categories from links to plain text.
-* To-do: Add option to move information currently available to add to header area to footer area.
-* To-do: Add option to include custom fields in header/footer.
+* To-do: Add option to specify a custom footer.
+* To-do: Add option to include custom fields in header.
 
 = 1.0.0 =
 
