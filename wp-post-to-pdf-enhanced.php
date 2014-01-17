@@ -398,6 +398,7 @@ if (!class_exists('wpptopdfenh')) {
                 $e->align = null;
                 $e->outertext = '<div>' . $e->outertext . '</div>';
             }
+            
 
             $html = $dom->save();
 

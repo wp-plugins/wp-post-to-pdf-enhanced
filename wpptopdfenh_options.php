@@ -289,6 +289,25 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                 <?php } ?>
             </td>
         </tr>
+        <tr valign="top">
+            <th scope="row">Custom CSS</th>
+            <td>
+                <input name="wpptopdfenh[applyCSS]"
+                       value="1" <?php echo (isset($wpptopdfenhopts['applyCSS'])) ? 'checked="checked"' : ''; ?>
+                       type="checkbox"/>
+
+                <p>Select if you would like to apply a custom css to all PDFs generated.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row"></th>
+            <td>
+                <textarea id="customCssSrc"
+                          name="wpptopdfenh[customCss]"><?php echo ($wpptopdfenhopts['customCss']) ? $wpptopdfenhopts['customCss'] : '' ?></textarea>
+
+                <p>Use the editor above to create or edit custom css to be applied to all PDFs.</p>
+            </td>
+        </tr>
         <?php $fonts = array(
 	    'Al Arabiya' => 'aealarabiya',
 	    'Furat' => 'aefurat',
