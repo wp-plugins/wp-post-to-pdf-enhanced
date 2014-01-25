@@ -5,7 +5,7 @@ Donate Link: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-p
 Tags: pdf, post, posts, post to pdf, tcpdf, printable, content, convert, stand-alone, stand alone, acrobat
 Requires at least: 2.7
 Tested up to: 3.8
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,11 +78,14 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Added ability to add global css. This is stored in the db.
 * Added option to specify the logo image padding/size factor (default is 14).
 * Resized input fields and textareas in admin panel.
-* Fix: Modified some code which was wrapping div tags around all images, forcing text centering Images should now render where positioned in the post/page.
-* Fix: When include/exclude dialogs are both set to include, and no entries present, radio button for post/page include/exclude is deselected (Issue #43).
-* Fix: Corrected Arial -> Helvetica core font mapping (use DejaVu for Unicode); added several missing fonts to admin dropdown.
+* Added debug code to keep handy (turned off by default; not settable in admin).
+* Partial Fix: Modified some code which was wrapping div tags around all images, forcing text centering (and thus, images within those areas). Images still not respecting alignment, but workaround is to place image in text area and set text alignment (issue #44).
+* Fix: When include/exclude dialogs are both set to include, and no entries present, radio button for post/page include/exclude is deselected (issue #43).
+* Fix: Corrected Arial -> Helvetica core font mapping (use DejaVu for Unicode); added several missing fonts to admin dropdown (issue #48).
 * Fix: When Process Shortcodes is not selected, strip shortcodes from content, so as not to render things like "[shortcode]".
-* Fix: Cleaned up some code to resolve undefined index and variable notices, as well as constant WPPT0PDFENH_PATH already defined notice.
+* Fix: Cleaned up some code to resolve undefined index and variable notices, as well as constant WPPT0PDFENH_PATH already defined notice (issue #47).
+* Fix: Added PHP version check before sending non-existent html decode constant (ENT_HTML401) to PHP < 5.4, reducing log noise (issue #46).
+* Fix: Rewrote code to generate icon. Now, instead of grabbing the url from the permalink, we grab the entire thing, in case there are additional query strings attached (issue #45).
 * To-do: Allow different icon for shortcode.
 * To-do: Allow arguments for shortcodes (fonts and other options).
 * To-do: Implement additional shortcodes for PDF formatting.
