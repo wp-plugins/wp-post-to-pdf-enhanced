@@ -73,7 +73,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                        value="0" <?php echo ($wpptopdfenhopts['include']) ? '' : 'checked="checked"'; ?>
                        type="radio"/> Exclude the following&nbsp;&nbsp;&nbsp;
                 <input name="wpptopdfenh[include]"
-                       value="1" <?php echo (isset($wpptopdfenhopts['include'])) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo ($wpptopdfenhopts['include']) ? 'checked="checked"' : ''; ?>
                        type="radio"/> Include the following
                 <br/>
                 <input type="text" name="wpptopdfenh[excludeThis]" id="wpptopdfenh[excludeThis]"
@@ -91,7 +91,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                        value="0" <?php echo ($wpptopdfenhopts['includeCache']) ? '' : 'checked="checked"'; ?>
                        type="radio"/> Exclude the following&nbsp;&nbsp;&nbsp;
                 <input name="wpptopdfenh[includeCache]"
-                       value="1" <?php echo (isset($wpptopdfenhopts['includeCache'])) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo ($wpptopdfenhopts['includeCache']) ? 'checked="checked"' : ''; ?>
                        type="radio"/> Include the following
                 <br/>
                 <input type="text" name="wpptopdfenh[excludeThisCache]" id="wpptopdfenh[excludeThisCache]"
@@ -232,25 +232,6 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
             </td>
         </tr>
         <tr valign="top">
-            <th scope="row">Display Featured Image</th>
-            <td>
-                <input name="wpptopdfenh[featuredImage]"
-                       value="1" <?php echo (isset($wpptopdfenhopts['featuredImage'])) ? 'checked="checked"' : ''; ?>
-                       type="checkbox"/>
-
-                <p>Select if you would like to display the featured image in the PDF header. If a featured image has been set for the particular post/page, it will be displayed just below the title.</p>
-            </td>
-        </tr>
-        <tr valign="top">
-            <th scope="row">Image Scaling Ratio</th>
-            <td>
-                <input type="text" name="wpptopdfenh[imageScale]" id="wpptopdfenh[imageScale]"
-                       value="<?php echo ($wpptopdfenhopts['imageScale']) ? $wpptopdfenhopts['imageScale'] : '1.25'; ?>"/>
-
-                <p>Enter your desired image scaling ratio as a decimal (default is 1.25). This represents the relative size of the image in the browser vs the size of the image in the PDF. Thus, 1.25 yields a 1.25:1 scale of web:PDF.</p>
-            </td>
-        </tr>
-        <tr valign="top">
             <th scope="row">Header All Pages</th>
             <td>
                 <input name="wpptopdfenh[headerAllPages]"
@@ -298,8 +279,44 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                 <p>Enter your desired factor to be applied to the logo (default is 14). This is applied to logo width/logo height, to provide space around the logo image. It <em>will</em> adjust the overall size of the logo as well as the surrounding space.</p>
             </td>
         </tr>
+        <tr valign="top">
+            <th scope="row">Custom Footer</th>
+            <td>
+                <input name="wpptopdfenh[customFooter]"
+                       value="1" <?php echo (isset($wpptopdfenhopts['customFooter'])) ? 'checked="checked"' : ''; ?>
+                       type="checkbox"/>
 
+                <p>Select if you would like to use custom footer content on all PDFs.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row"></th>
+            <td>
+                <textarea id="customFooterText"
+                          name="wpptopdfenh[customFooterText]"><?php echo ($wpptopdfenhopts['customFooterText']) ? $wpptopdfenhopts['customFooterText'] : '' ?></textarea>
 
+                <p>Use the editor above to create or edit custom footer content to be added to all PDFs.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Display Featured Image</th>
+            <td>
+                <input name="wpptopdfenh[featuredImage]"
+                       value="1" <?php echo (isset($wpptopdfenhopts['featuredImage'])) ? 'checked="checked"' : ''; ?>
+                       type="checkbox"/>
+
+                <p>Select if you would like to display the featured image in the PDF header. If a featured image has been set for the particular post/page, it will be displayed just below the title.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Image Scaling Ratio</th>
+            <td>
+                <input type="text" name="wpptopdfenh[imageScale]" id="wpptopdfenh[imageScale]"
+                       value="<?php echo ($wpptopdfenhopts['imageScale']) ? $wpptopdfenhopts['imageScale'] : '1.25'; ?>"/>
+
+                <p>Enter your desired image scaling ratio as a decimal (default is 1.25). This represents the relative size of the image in the browser vs the size of the image in the PDF. Thus, 1.25 yields a 1.25:1 scale of web:PDF.</p>
+            </td>
+        </tr>
         <tr valign="top">
             <th scope="row">Custom CSS</th>
             <td>

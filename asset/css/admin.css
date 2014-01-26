@@ -51,7 +51,7 @@ div.wpptopdfenh-option-body {
     width: 500px;
 }
 
-textarea#customCssSrc, textarea#imageIconSrc, input#wpptopdfenh\[excludeThis\], input#wpptopdfenh\[excludeThisCache\]{
+textarea#customFooterText, textarea#customCssSrc, textarea#imageIconSrc, input#wpptopdfenh\[excludeThis\], input#wpptopdfenh\[excludeThisCache\]{
     width: 100% !important;
 }
 

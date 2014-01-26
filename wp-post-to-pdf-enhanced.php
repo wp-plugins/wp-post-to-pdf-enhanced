@@ -3,7 +3,7 @@
 Plugin Name: WP Post to PDF Enhanced
 Plugin URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
 Description: WP Post to PDF Enhanced, based on WP Post to PDF by Neerav Dobaria, renders posts & pages as downloadable PDFs for archiving and/or printing.
-Version: 1.0.0
+Version: 1.0.1
 License: GPLv2
 Author: Lewis Rosenthal
 Author URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
@@ -27,6 +27,10 @@ if (!function_exists('add_action')) {
     header('HTTP/1.1 403 Forbidden');
     exit();
 }
+
+//Debug settings - uncomment for noise and commentary
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL | E_STRICT);
 
 // Define certain terms which may be required throughout the plugin
 global $blog_id;
@@ -315,8 +319,13 @@ if (!class_exists('wpptopdfenh')) {
 
             //$pdf->SetSubject('TCPDF Tutorial');
             //$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
-            // set default header data
-            $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES);
+            // set default header data, as appropriate for PHP 5.4 or below
+	    if (version_compare(phpversion(), '5.4.0', '<')) {
+                $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_QUOTES);
+	        }else{
+                $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES);
+	        }
+
             // set header and footer fonts
             $pdf->setHeaderFont(Array($this->options['headerFont'], '', $this->options['headerFontSize']));
             $pdf->setFooterFont(Array($this->options['footerFont'], '', $this->options['footerFontSize']));
@@ -347,22 +356,30 @@ if (!class_exists('wpptopdfenh')) {
             // Add a page
             // This method has several options, check the source code documentation for more information.
             $pdf->AddPage();
+ 
+            // Apply global css, if set in config
+            if ($this->options['applyCSS']){
+	        $html .= '<style>'.$this->options['customCss'].'</style>';
+	        }
+
             // Set some content to print
-            $html = '<h1>' . html_entity_decode($post->post_title, ENT_QUOTES) . '</h1>';
+            $html .= '<h1>' . html_entity_decode($post->post_title, ENT_QUOTES) . '</h1>';
 
             // Display author name is set in config
             if (isset($this->options['authorDetail'])){
-                $author = get_the_author_meta($this->options['authorDetail'], $post->post_author);
-                $html .= '<p><strong>Author : </strong>'.$author.'</p>';
-            }
+                if ($this->options['authorDetail']){
+                    $author = get_the_author_meta($this->options['authorDetail'], $post->post_author);
+                    $html .= '<p><strong>Author : </strong>'.$author.'</p>';
+                    }
+                }
 
             // Display category list is set in config
             if (isset($this->options['postCategories'])){
                 $categories = get_the_category_list(', ', '', $post);
                 if ($categories) {
                     $html .= '<p><strong>Categories : </strong>'.$categories.'</p>';
+                    }
                 }
-            }
 
             // Display tag list is set in config
             if (isset($this->options['postTags'])){
@@ -472,15 +489,12 @@ if (!class_exists('wpptopdfenh')) {
             if (!$include and in_array($post->ID, $excludeThis))
                 return;
 
-            // Change querystring separator for those who do not have pretty URL enabled
-            $qst = get_permalink($post->ID);
-            $qst = parse_url($qst);
-            if (isset($qst['query']))
-                $qst = '&format=pdf';
-            else
-                $qst = '?format=pdf';
-
-            return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . get_permalink($post->ID) . $qst . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+            // Create link
+             if (!is_singular()){
+                return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . add_query_arg( 'format', 'pdf', get_permalink($post->ID)) . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+                }else{
+                return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . add_query_arg( 'format', 'pdf' ) . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+            }
         }
 
         // If the icon shortcode is used, render the icon where positioned in the body (the icon is invisible in the resulting PDF).
@@ -500,18 +514,15 @@ if (!class_exists('wpptopdfenh')) {
 
             global $post;
 
-            // Change querystring separator for those who do not have pretty URL enabled
-            $qst = get_permalink($post->ID);
-            $qst = parse_url($qst);
-            if (isset($qst['query']))
-                $qst = '&format=pdf';
-            else
-                $qst = '?format=pdf';
-
-            return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . get_permalink($post->ID) . $qst . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+            // Create link
+             if (!is_singular()){
+                return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . add_query_arg( 'format', 'pdf', get_permalink($post->ID)) . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+                }else{
+                return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . add_query_arg( 'format', 'pdf' ) . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+            }
         }
 
-       function on_activate()
+        function on_activate()
         {
             // set default options on activate
             $default = array(
