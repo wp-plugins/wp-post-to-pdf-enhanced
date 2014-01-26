@@ -87,12 +87,8 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Fix: Added PHP version check before sending non-existent html decode constant (ENT_HTML401) to PHP < 5.4, reducing log noise (issue #46).
 * Fix: Rewrote code to generate icon. Now, instead of grabbing the url from the permalink, we grab the entire thing, in case there are additional query strings attached (issue #45).
 * To-do: Allow different icon for shortcode.
-* To-do: Allow arguments for shortcodes (fonts and other options).
-* To-do: Implement additional shortcodes for PDF formatting.
-* To-do: Allow shortcode to specify a stylesheet to apply/override global css.
+* To-do: Allow arguments for shortcodes (fonts, external css, other options).
 * To-do: Implement filter to strip shortcodes (when Process Shortcodes is deselected) /except/ for our shortcodes.
-* To-do: Work around html entity constant ENT_HTML401, added in PHP 5.4, but not present earlier (this throws an undefined warning in PHP 5.3).
-* To-do: Fix "Cannot modify header information - headers already sent by" warning.
 * To-do: Fix (once and for all) image alignment issues.
 * To-do: Add option to change formatting of tags & categories from links to plain text.
 * To-do: Add option to specify a custom footer.
