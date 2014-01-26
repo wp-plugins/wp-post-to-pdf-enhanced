@@ -4,7 +4,7 @@ Contributors: LewisR
 Donate Link: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
 Tags: pdf, post, posts, post to pdf, tcpdf, printable, content, convert, stand-alone, stand alone, acrobat
 Requires at least: 2.7
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: 1.0.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
