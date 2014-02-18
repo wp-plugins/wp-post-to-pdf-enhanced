@@ -70,6 +70,11 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 == Changelog ==
 
+= 1.1.0 =
+
+* Added ability to create custom footer (visible only in PDF); implemented admin panel options for this. Footer is stored in the db.
+* Reworked admin area to provide better organization of options.
+
 = 1.0.2 =
 
 * Various minor variable isset and constant corrections to fix PHP Notices in error log.

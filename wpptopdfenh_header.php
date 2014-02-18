@@ -10,6 +10,22 @@
 if(!class_exists('TCPDF'))
     require_once(WPPT0PDFENH_PATH . '/tcpdf/tcpdf.php');
 
+// if we have not set the option to include the header on all pages, define a constant
+if ( !isset( $this->options['headerAllPages'] ) )
+	define ('WPPT0PDFENH_HEADER_FIRST_PAGE_ONLY', 'Y');
+
+// if we have enabled a custom footer, define those values as constants
+if ( isset( $this->options['customFooter'] ) ){
+	define ('WPPT0PDFENH_FOOTER_WIDTH', $this->options['footerWidth']);
+	define ('WPPT0PDFENH_FOOTER_MIN_HEIGHT', $this->options['footerMinHeight']);
+	define ('WPPT0PDFENH_FOOTER_X', $this->options['footerX']);
+	define ('WPPT0PDFENH_FOOTER_Y', $this->options['footerY']);
+	define ('WPPT0PDFENH_CUSTOM_FOOTER', $this->options['customFooterText']);
+	define ('WPPT0PDFENH_FOOTER_BORDER', $this->options['footerBorder']);
+	define ('WPPT0PDFENH_FOOTER_FILL', $this->options['footerFill']);
+	define ('WPPT0PDFENH_FOOTER_ALIGN', $this->options['footerAlign']);
+	define ('WPPT0PDFENH_FOOTER_PAD', $this->options['footerPad']);
+	}
 
 // Extend the TCPDF class to print the header only on the first page
 
@@ -17,58 +33,22 @@ class MYPDF extends TCPDF {
 
     public function Header() {
 
-        // call parent header method
-        parent::Header();
-
-        // disable header on additional pages, if set
-        if (!$this->options['headerAllPages']){
+        if ( defined('WPPT0PDFENH_HEADER_FIRST_PAGE_ONLY') ){
+			parent::Header();
             $this->setPrintHeader(false);
+            }else{
+            // call parent header method for header on all pages
+            parent::Header();
             }
         }
 
     public function Footer() {
-
        
-//        if (!$this->options['customFooter']){
-            // call parent footer method for default footer
-//            parent::Footer();
-//            }else{
-//	    $customFooterText = $this->options['customFooterText'];
-	    $this->SetY(-10);
-//	    $this->SetFont('helvetica', 'I', 10);
-//	    $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().' of '.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
-
-	    $htmlfooter = '<table style=" border-collapse: collapse; text-align: left; width: 100%;">
-	    			<tbody>
-	    				<tr>
-	    					<td>
-	    					199 Armour dr.<br>
-	    					</td>
-	    					<td>
-	    					<br>
-	    					</td>
-	    				</tr>
-	    				<tr>
-	    					<td>
-	    					Atlanta GA, 30324
-	    					</td>
-	    					<td style="text-align: right;">
-	    					<a href="http://www.TSCustomFurniture.com">www.TSCustomFurniture.com</a><br>
-	    					</td>
-	    				</tr>
-	    				<tr>
-	    					<td>
-	    					p: 404.810.9081 - fax:404.810.9084
-	    					</td>
-	    					<td style="text-align: right;">
-	    					<a href="mailto:sales@TSCustomFurniture.com">sales@TSCustomFurniture.com</a><br>
-	    					</td>
-	    				</tr>
-	    			</tbody>
-	    		</table>';
-//	    $htmlfooter .= '<br>Page '.$this->getAliasNumPage().' of '.$this->getAliasNbPages();
-            $this->writeHTMLCell(0, 0, 10, 260, $htmlfooter, 0, 0, 0, true, 'C', true);
-//	    }
-	 }
-     }
-
+        if ( defined('WPPT0PDFENH_CUSTOM_FOOTER') ){
+            $this->writeHTMLCell(WPPT0PDFENH_FOOTER_WIDTH, WPPT0PDFENH_FOOTER_MIN_HEIGHT, WPPT0PDFENH_FOOTER_X, WPPT0PDFENH_FOOTER_Y, WPPT0PDFENH_CUSTOM_FOOTER, WPPT0PDFENH_FOOTER_BORDER, 0, WPPT0PDFENH_FOOTER_FILL, true, WPPT0PDFENH_FOOTER_ALIGN, WPPT0PDFENH_FOOTER_PAD);
+            }else{
+			// call parent footer method for default footer
+            parent::Footer();
+			}
+		}
+	}

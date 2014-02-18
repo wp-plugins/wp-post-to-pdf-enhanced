@@ -3,7 +3,7 @@
 Plugin Name: WP Post to PDF Enhanced
 Plugin URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
 Description: WP Post to PDF Enhanced, based on WP Post to PDF by Neerav Dobaria, renders posts & pages as downloadable PDFs for archiving and/or printing.
-Version: 1.0.1
+Version: 1.1.0
 License: GPLv2
 Author: Lewis Rosenthal
 Author URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
@@ -21,6 +21,7 @@ Author URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pd
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 //avoid direct calls to this file, because now WP core and framework has been used
 if (!function_exists('add_action')) {
     header('Status: 403 Forbidden');
@@ -29,8 +30,8 @@ if (!function_exists('add_action')) {
 }
 
 //Debug settings - uncomment for noise and commentary
-//ini_set('display_errors', 'On');
-//error_reporting(E_ALL | E_STRICT);
+ini_set('display_errors', 'On');
+error_reporting(E_ALL | E_STRICT);
 
 // Define certain terms which may be required throughout the plugin
 global $blog_id;
@@ -282,19 +283,15 @@ if (!class_exists('wpptopdfenh')) {
 
             $filePath = WPPT0PDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
 
-            // create new PDF document
-            if (!$this->options['headerAllPages']){
-                $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-                }else{
-                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-                }
+			// create new PDF document
+            $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
             // Let other filter modify content if selected
             if (isset($this->options['otherPlugin']))
                 $post->post_content = apply_filters('the_content', $post->post_content);
             else
                 $post->post_content = wpautop($post->post_content);
-
+	        
             // Process shortcodes if selected
             if (isset($this->options['processShortcodes']))
                 $post->post_content = do_shortcode($post->post_content);
@@ -317,13 +314,16 @@ if (!class_exists('wpptopdfenh')) {
 		    }
 		}
 
+	    // if the logo has an alpha channel, we need to use the Image() function to display it (TCPDF > 6.0.43)
+	    //$pdf->Image($logo, '', '', '', '', '', get_bloginfo('siteurl'), '', '', '', '', false, false, '', '', false, false, false, '');
+
             //$pdf->SetSubject('TCPDF Tutorial');
             //$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
             // set default header data, as appropriate for PHP 5.4 or below
 	    if (version_compare(phpversion(), '5.4.0', '<')) {
-                $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_QUOTES);
+                $pdf->setHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_QUOTES);
 	        }else{
-                $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES);
+                $pdf->setHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES);
 	        }
 
             // set header and footer fonts
@@ -477,7 +477,7 @@ if (!class_exists('wpptopdfenh')) {
 
             global $post;
 
-            if (!$this->options[$post->post_type])
+            if ( ! isset( $this->options[$post->post_type] ) )
                 return false;
 
             // return nothing if post in exclude list
@@ -534,8 +534,16 @@ if (!class_exists('wpptopdfenh')) {
                     'iconLeftRight' => 'left',
                     'imageIcon' => '<img alt="Download PDF" src="' . WPPT0PDFENH_URL . '/asset/images/pdf.png">',
                     'headerlogoImageFactor' => 14,
-                    'imageScale' => 1.25,
                     'headerAllPages' => 0,
+                    'imageScale' => 1.25,
+                    'applyCSS' => 0,
+                    'customFooter' => 0,
+                    'footerMinHeight' => 0,
+                    'footerWidth' => 0,
+                    'footerX' => 10,
+                    'footerY' => 270,
+                    'footerFill' => 0,
+                    'footerPad' => 1,
                     'headerFont' => 'helvetica',
                     'headerFontSize' => 10,
                     'footerFont' => 'helvetica',

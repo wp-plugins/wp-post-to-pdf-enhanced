@@ -26,7 +26,7 @@
 <form method="post" action="options.php">
 <?php settings_fields('wpptopdfenh_options');
 $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
-<h3>Accessibility Options (include/exclude content types, posts, pages)</h3>
+<h3>Include/Exclude content types, posts, pages</h3>
 
 <div class="wpptopdfenh-option-body">
     <table class="form-table">
@@ -106,7 +106,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
 
     </table>
 </div>
-<h3>Presentation Options (PDF icon appearance)</h3>
+<h3>PDF icon/link presentation</h3>
 
 <div class="wpptopdfenh-option-body">
     <table class="form-table">
@@ -152,7 +152,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
         </tr>
     </table>
 </div>
-<h3>PDF Formatting Options (output tuning)</h3>
+<h3>PDF Formatting - General</h3>
 
 <div class="wpptopdfenh-option-body">
     <table class="form-table">
@@ -160,7 +160,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
             <th scope="row">Other Plugins</th>
             <td>
                 <input name="wpptopdfenh[otherPlugin]"
-                       value="1" <?php echo ($wpptopdfenhopts['otherPlugin']) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo (isset($wpptopdfenhopts['otherPlugin'])) ? 'checked="checked"' : ''; ?>
                        type="checkbox"/>
 
                 <p>Select if you would like to include formatting applied by other plugins in the PDF.</p>
@@ -170,7 +170,7 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
             <th scope="row">Process Shortcodes</th>
             <td>
                 <input name="wpptopdfenh[processShortcodes]"
-                       value="1" <?php echo ($wpptopdfenhopts['processShortcodes']) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo (isset($wpptopdfenhopts['processShortcodes'])) ? 'checked="checked"' : ''; ?>
                        type="checkbox"/>
 
                 <p>Select if you would like to process shortcodes and display their results in the PDF.</p>
@@ -205,33 +205,39 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
             <th scope="row">Display Post Category List</th>
             <td>
                 <input name="wpptopdfenh[postCategories]"
-                       value="1" <?php echo ($wpptopdfenhopts['postCategories']) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo (isset($wpptopdfenhopts['postCategories'])) ? 'checked="checked"' : ''; ?>
                        type="checkbox"/>
 
-                <p>Select if you would like to display the post category list in the PDF.</p>
+                <p>Select if you would like to include the post category list in the PDF.</p>
             </td>
         </tr>
         <tr valign="top">
             <th scope="row">Display Post Tag List</th>
             <td>
                 <input name="wpptopdfenh[postTags]"
-                       value="1" <?php echo ($wpptopdfenhopts['postTags']) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo (isset($wpptopdfenhopts['postTags'])) ? 'checked="checked"' : ''; ?>
                        type="checkbox"/>
 
-                <p>Select if you would like to display the post tag list in the PDF.</p>
+                <p>Select if you would like to include the post tag list in the PDF.</p>
             </td>
         </tr>
         <tr valign="top">
             <th scope="row">Display Post Date</th>
             <td>
                 <input name="wpptopdfenh[postDate]"
-                       value="1" <?php echo ($wpptopdfenhopts['postDate']) ? 'checked="checked"' : ''; ?>
+                       value="1" <?php echo (isset($wpptopdfenhopts['postDate'])) ? 'checked="checked"' : ''; ?>
                        type="checkbox"/>
 
-                <p>Select if you would like to display the post date in the PDF header.</p>
+                <p>Select if you would like to include the post date in the PDF.</p>
             </td>
         </tr>
         <tr valign="top">
+	</table>
+</div>
+<h3>PDF Formatting - Header</h3>
+
+<div class="wpptopdfenh-option-body">
+    <table class="form-table">
             <th scope="row">Header All Pages</th>
             <td>
                 <input name="wpptopdfenh[headerAllPages]"
@@ -279,25 +285,12 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                 <p>Enter your desired factor to be applied to the logo (default is 14). This is applied to logo width/logo height, to provide space around the logo image. It <em>will</em> adjust the overall size of the logo as well as the surrounding space.</p>
             </td>
         </tr>
-        <tr valign="top">
-            <th scope="row">Custom Footer</th>
-            <td>
-                <input name="wpptopdfenh[customFooter]"
-                       value="1" <?php echo (isset($wpptopdfenhopts['customFooter'])) ? 'checked="checked"' : ''; ?>
-                       type="checkbox"/>
+	</table>
+</div>
+<h3>PDF Formatting - Content</h3>
 
-                <p>Select if you would like to use custom footer content on all PDFs.</p>
-            </td>
-        </tr>
-        <tr valign="top">
-            <th scope="row"></th>
-            <td>
-                <textarea id="customFooterText"
-                          name="wpptopdfenh[customFooterText]"><?php echo ($wpptopdfenhopts['customFooterText']) ? $wpptopdfenhopts['customFooterText'] : '' ?></textarea>
-
-                <p>Use the editor above to create or edit custom footer content to be added to all PDFs.</p>
-            </td>
-        </tr>
+<div class="wpptopdfenh-option-body">
+    <table class="form-table">
         <tr valign="top">
             <th scope="row">Display Featured Image</th>
             <td>
@@ -336,6 +329,128 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                 <p>Use the editor above to create or edit custom css to be applied to all PDFs.</p>
             </td>
         </tr>
+	</table>
+</div>
+<h3>PDF Formatting - Footer</h3>
+
+<div class="wpptopdfenh-option-body">
+    <table class="form-table">
+        <tr valign="top">
+            <th scope="row">Custom Footer</th>
+            <td>
+                <input name="wpptopdfenh[customFooter]"
+                       value="1" <?php echo (isset($wpptopdfenhopts['customFooter'])) ? 'checked="checked"' : ''; ?>
+                       type="checkbox"/>
+
+                <p>Select if you would like to use custom footer content on all PDFs.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row"></th>
+            <td>
+                <textarea id="customFooterText"
+                          name="wpptopdfenh[customFooterText]"><?php echo ($wpptopdfenhopts['customFooterText']) ? $wpptopdfenhopts['customFooterText'] : '' ?></textarea>
+
+                <p>Use the editor above to create or edit custom footer content to be added to all PDFs.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Footer Cell Width</th>
+            <td>
+                <input type="text" name="wpptopdfenh[footerWidth]" id="wpptopdfenh[footerWidth]"
+                       value="<?php echo ($wpptopdfenhopts['footerWidth']) ? $wpptopdfenhopts['footerWidth'] : '0'; ?>"/>
+
+                <p>Enter your desired width (in mm) for the footer cell (default is 0mm). If 0, the cell extends up to the right margin.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Footer Cell Minimum Height</th>
+            <td>
+                <input type="text" name="wpptopdfenh[footerMinHeight]" id="wpptopdfenh[footerMinHeight]"
+                       value="<?php echo ($wpptopdfenhopts['footerMinHeight']) ? $wpptopdfenhopts['footerMinHeight'] : '0'; ?>"/>
+
+                <p>Enter your desired minimum height (in mm) for the footer cell (default is 0mm). The cell extends automatically if needed.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Footer Cell Upper Left Corner (X)</th>
+            <td>
+                <input type="text" name="wpptopdfenh[footerX]" id="wpptopdfenh[footerX]"
+                       value="<?php echo ($wpptopdfenhopts['footerX']) ? $wpptopdfenhopts['footerX'] : '10'; ?>"/>
+
+                <p>Enter your desired positioning (offset in mm from left margin) for the upper left corner of the footer cell (X coordinate; default is 10mm).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Footer Cell Upper Left Corner (Y)</th>
+            <td>
+                <input type="text" name="wpptopdfenh[footerY]" id="wpptopdfenh[footerY]"
+                       value="<?php echo ($wpptopdfenhopts['footerY']) ? $wpptopdfenhopts['footerY'] : '270'; ?>"/>
+
+                <p>Enter your desired positioning (offset in mm from top margin) for the upper left corner of the footer cell (Y coordinate; default is 270mm).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Footer Cell Border</th>
+            <td>
+                <input type="text" name="wpptopdfenh[footerCellBorder]" id="wpptopdfenh[footerCellBorder]"
+                       value="<?php echo ($wpptopdfenhopts['footerCellBorder']) ? $wpptopdfenhopts['footerCellBorder'] : ''; ?>"/>
+
+                <p>Enter your desired border for the footer cell (default is none). Valid entries are:<br/>
+                	<li>1: renders a frame</li>
+                	or a string containing some or all of the following characters (in any order):<br/>
+                	<li>L: left border</li>
+                	<li>T: top border</li>
+                	<li>R: right border</li>
+                	<li>B: bottom border</li>
+                	<span class="wpptopdfenh-notice">or an array of line styles for each border group:</span><br/>
+                	<code>array('LTRB' => array('width' => 2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)))</code></p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Footer Cell Fill</th>
+            <td>
+		<input name="wpptopdfenh[footerFill]"
+                       value="1" <?php echo (isset($wpptopdfenhopts['footerFill'])) ? 'checked="checked"' : ''; ?>
+                       type="checkbox"/>
+
+                <p>Select if you would like the footer cell to be painted (default is no).</p>
+            </td>
+        </tr>
+
+       <?php $footeralign = array('Auto' => '', 'Left' => 'L', 'Right' => 'R', 'Center' => 'C'); ?>
+        <tr valign="top">
+            <th scope="row">Footer Cell Text Alignment</th>
+            <td>
+		<?php
+			echo '<select name="wpptopdfenh[footerAlign]">';
+			foreach ($footeralign as $key => $value) {
+                        if ($wpptopdfenhopts['footerAlign'])
+                        	$checked = ($wpptopdfenhopts['footerAlign'] == $value) ? 'selected="selected"' : '';
+                        	echo '<option value="' . $value . '" ' . $checked . ' >' . $key . '</option>';
+				}
+			echo '</select>';
+		?>
+                <p>Select your desired text alignment for the footer cell (default is auto left-to-right or right-to-left).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Footer Cell Auto-padding</th>
+            <td>
+		<input name="wpptopdfenh[footerPad]"
+                       value="1" <?php echo (isset($wpptopdfenhopts['footerPad'])) ? '' : 'checked="checked"'; ?>
+                       type="checkbox"/>
+
+                <p>Select if you would like to automatically adjust internal padding to account for line width (default is yes).</p>
+            </td>
+        </tr>
+	</table>
+</div>
+<h3>PDF Formatting - Typography</h3>
+
+<div class="wpptopdfenh-option-body">
+    <table class="form-table">
+
         <?php $fonts = array(
 	    'Al Arabiya' => 'aealarabiya',
 	    'Furat' => 'aefurat',
@@ -490,5 +605,5 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
            value="<?php _e('Save and Reset PDF Cache') ?>"/>
 </p>
 </form>
-<h2>If you find this plugin useful, please rate it here <a target="_blank" title="Will open in new page!" href="http://wordpress.org/extend/plugins/wp-post-to-pdf-enhanced/">http://wordpress.org/extend/plugins/wp-post-to-pdf-enhanced/</a>.</h2>
+<h4>If you find this plugin useful, <a target="_blank" title="Will open in new window" href="http://wordpress.org/extend/plugins/wp-post-to-pdf-enhanced/">please review and rate it</a>.</h4>
 </div>

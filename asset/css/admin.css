@@ -51,15 +51,15 @@ div.wpptopdfenh-option-body {
     width: 500px;
 }
 
-textarea#customFooterText, textarea#customCssSrc, textarea#imageIconSrc, input#wpptopdfenh\[excludeThis\], input#wpptopdfenh\[excludeThisCache\]{
+textarea#customFooterText, input#wpptopdfenh\[footerCellBorder\], textarea#customCssSrc, textarea#imageIconSrc, input#wpptopdfenh\[excludeThis\], input#wpptopdfenh\[excludeThisCache\]{
     width: 100% !important;
 }
 
-textarea#customCssSrc{
+textarea#customFooterText, textarea#customCssSrc{
     height: 250px !important;
 }
 
-input#wpptopdfenh\[headerlogoImageFactor\], input#wpptopdfenh\[imageScale\], input#wpptopdfenh\[headerFontSize\], input#wpptopdfenh\[footerFontSize\], input#wpptopdfenh\[contentFontSize\]{
+input#wpptopdfenh\[footerMinHeight\], input#wpptopdfenh\[footerWidth\], input#wpptopdfenh\[footerX\], input#wpptopdfenh\[footerY\], input#wpptopdfenh\[headerlogoImageFactor\], input#wpptopdfenh\[imageScale\], input#wpptopdfenh\[headerFontSize\], input#wpptopdfenh\[footerFontSize\], input#wpptopdfenh\[contentFontSize\]{
     width: 50px !important;
 }
 
