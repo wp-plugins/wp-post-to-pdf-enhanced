@@ -5,7 +5,7 @@ Donate Link: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-p
 Tags: pdf, post, posts, post to pdf, tcpdf, printable, content, convert, stand-alone, stand alone, acrobat
 Requires at least: 2.7
 Tested up to: 3.8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,10 +70,14 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 == Changelog ==
 
-= 1.1.0 =
+= 1.1.0 (development) =
 
 * Added ability to create custom footer (visible only in PDF); implemented admin panel options for this. Footer is stored in the db.
 * Reworked admin area to provide better organization of options.
+
+= 1.0.3 =
+
+* Fixed issue with has_shortcode() function introduced with WP 3.6. We are once again compatible with earlier versions of WP.
 
 = 1.0.2 =
 
@@ -119,6 +123,10 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * To-do: Add shortcode to set manual page breaks when rendering PDF.
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+
+Shortcodes were dependent upon the has_shortcode() function in the WordPress CODEX. Unfortunately, this was just introduced in WordPres 3.6, so utilizing it effectively broke Wp post to PDF Enhanced for all versions of WP prior to 3.6. This is now fixed to be backward compatible.
 
 = 1.0.0 =
 
