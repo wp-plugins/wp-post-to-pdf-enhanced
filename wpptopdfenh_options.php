@@ -143,10 +143,10 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
             <th scope="row">PDF Download Icon</th>
             <td>
                 <textarea id="imageIconSrc"
-                          name="wpptopdfenh[imageIcon]"><?php echo ($wpptopdfenhopts['imageIcon']) ? $wpptopdfenhopts['imageIcon'] : '<img alt="Download PDF" src="' . WPPT0PDFENH_URL . '/asset/images/pdf.png">'; ?></textarea>
+                          name="wpptopdfenh[imageIcon]"><?php echo ($wpptopdfenhopts['imageIcon']) ? $wpptopdfenhopts['imageIcon'] : '<img alt="Download PDF" src="' . WPPTOPDFENH_URL . '/asset/images/pdf.png">'; ?></textarea>
 
                 <p>Enter the content you would like to display for the PDF download icon (you may use HTML). <br/><span
-                        class="wpptopdfenh-notice">Use the following code in the textbox above for the included PDF icon.</span><br/><code><?php echo htmlentities('<img alt="Download PDF" src="' . WPPT0PDFENH_URL . '/asset/images/pdf.png">');  ?></code>
+                        class="wpptopdfenh-notice">Use the following code in the textbox above for the included PDF icon.</span><br/><code><?php echo htmlentities('<img alt="Download PDF" src="' . WPPTOPDFENH_URL . '/asset/images/pdf.png">');  ?></code>
                 </p>
             </td>
         </tr>
@@ -285,6 +285,15 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                 <p>Enter your desired factor to be applied to the logo (default is 14). This is applied to logo width/logo height, to provide space around the logo image. It <em>will</em> adjust the overall size of the logo as well as the surrounding space.</p>
             </td>
         </tr>
+        <tr valign="top">
+            <th scope="row">Header Margin</th>
+            <td>
+                <input type="text" name="wpptopdfenh[marginHeader]" id="wpptopdfenh[marginHeader]"
+                       value="<?php echo ($wpptopdfenhopts['marginHeader']) ? $wpptopdfenhopts['marginHeader'] : '5'; ?>"/>
+
+                <p>Enter your desired top margin for the header (default is 5).</p>
+            </td>
+        </tr>
 	</table>
 </div>
 <h3>PDF Formatting - Content</h3>
@@ -327,6 +336,33 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                           name="wpptopdfenh[customCss]"><?php echo ($wpptopdfenhopts['customCss']) ? $wpptopdfenhopts['customCss'] : '' ?></textarea>
 
                 <p>Use the editor above to create or edit custom css to be applied to all PDFs.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Top Margin</th>
+            <td>
+                <input type="text" name="wpptopdfenh[marginTop]" id="wpptopdfenh[marginTop]"
+                       value="<?php echo ($wpptopdfenhopts['marginTop']) ? $wpptopdfenhopts['marginTop'] : '27'; ?>"/>
+
+                <p>Enter your desired top margin (default is 27).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Left Margin</th>
+            <td>
+                <input type="text" name="wpptopdfenh[marginLeft]" id="wpptopdfenh[marginLeft]"
+                       value="<?php echo ($wpptopdfenhopts['marginLeft']) ? $wpptopdfenhopts['marginLeft'] : '15'; ?>"/>
+
+                <p>Enter your desired left margin (default is 15).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Right Margin</th>
+            <td>
+                <input type="text" name="wpptopdfenh[marginRight]" id="wpptopdfenh[marginRight]"
+                       value="<?php echo ($wpptopdfenhopts['marginRight']) ? $wpptopdfenhopts['marginRight'] : '15'; ?>"/>
+
+                <p>Enter your desired right margin (default is 15).</p>
             </td>
         </tr>
 	</table>
@@ -442,6 +478,15 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
                        type="checkbox"/>
 
                 <p>Select if you would like to automatically adjust internal padding to account for line width (default is yes).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Footer Margin</th>
+            <td>
+                <input type="text" name="wpptopdfenh[marginFooter]" id="wpptopdfenh[marginFooter]"
+                       value="<?php echo ($wpptopdfenhopts['marginFooter']) ? $wpptopdfenhopts['marginFooter'] : '10'; ?>"/>
+
+                <p>Enter your desired bottom margin for the footer (default is 10). This is the minimum distance between the footer and the bottom page margin.</p>
             </td>
         </tr>
 	</table>

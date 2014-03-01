@@ -30,18 +30,18 @@ if (!function_exists('add_action')) {
 }
 
 //Debug settings - uncomment for noise and commentary
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_STRICT);
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL | E_STRICT);
 
 // Define certain terms which may be required throughout the plugin
 global $blog_id;
-define('WPPT0PDF_NAME', 'WP Post to PDF Enhanced');
-define('WPPT0PDFENH_SNAME', 'wpptopdfenh');
-if (!defined('WPPT0PDFENH_PATH'))
-    define('WPPT0PDFENH_PATH', WP_PLUGIN_DIR . '/wp-post-to-pdf-enhanced');
-define('WPPT0PDFENH_URL', WP_PLUGIN_URL . '/wp-post-to-pdf-enhanced');
-define('WPPT0PDFENH_BASENAME', plugin_basename(__FILE__));
-define('WPPT0PDFENH_CACHE_DIR', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache/' . $blog_id);
+define('WPPTOPDF_NAME', 'WP Post to PDF Enhanced');
+define('WPPTOPDFENH_SNAME', 'wpptopdfenh');
+if (!defined('WPPTOPDFENH_PATH'))
+    define('WPPTOPDFENH_PATH', WP_PLUGIN_DIR . '/wp-post-to-pdf-enhanced');
+define('WPPTOPDFENH_URL', WP_PLUGIN_URL . '/wp-post-to-pdf-enhanced');
+define('WPPTOPDFENH_BASENAME', plugin_basename(__FILE__));
+define('WPPTOPDFENH_CACHE_DIR', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache/' . $blog_id);
 
 if (!class_exists('wpptopdfenh')) {
 
@@ -56,8 +56,8 @@ if (!class_exists('wpptopdfenh')) {
             if (is_admin()) {
                 add_action('admin_init', array(&$this, 'on_admin_init'));
                 add_action('admin_menu', array(&$this, 'on_admin_menu'));
-                add_filter("plugin_action_links_" . WPPT0PDFENH_BASENAME, array(&$this, 'action_links'));
-                register_activation_hook(WPPT0PDFENH_BASENAME, array(&$this, 'on_activate'));
+                add_filter("plugin_action_links_" . WPPTOPDFENH_BASENAME, array(&$this, 'action_links'));
+                register_activation_hook(WPPTOPDFENH_BASENAME, array(&$this, 'on_activate'));
                 add_action('pre_post_update', array(&$this, 'on_pre_post_update'));
                 add_action('post_updated', array(&$this, 'generate_pdf_file'));
             } else {
@@ -74,7 +74,7 @@ if (!class_exists('wpptopdfenh')) {
         function on_update_options($post)
         {
             if (isset($post['submit']) and 'Save and Reset PDF Cache' == $post['submit']) {
-                $this->delete_cache(WPPT0PDFENH_CACHE_DIR);
+                $this->delete_cache(WPPTOPDFENH_CACHE_DIR);
             }
             return $post;
         }
@@ -96,28 +96,28 @@ if (!class_exists('wpptopdfenh')) {
 
         function on_admin_menu()
         {
-            $option_page = add_options_page('WP Post to PDF Enhanced Options', 'WP Post to PDF Enhanced', 'administrator', WPPT0PDFENH_BASENAME, array(&$this, 'options_page'));
+            $option_page = add_options_page('WP Post to PDF Enhanced Options', 'WP Post to PDF Enhanced', 'administrator', WPPTOPDFENH_BASENAME, array(&$this, 'options_page'));
             //add_action("admin_print_scripts-$option_page", array(&$this, 'on_admin_print_scripts'));
             add_action("admin_print_styles-$option_page", array(&$this, 'on_admin_print_styles'));
         }
 
         function options_page()
         {
-            include(WPPT0PDFENH_PATH . '/wpptopdfenh_options.php');
+            include(WPPTOPDFENH_PATH . '/wpptopdfenh_options.php');
         }
 
         function on_admin_print_styles()
         {
-            wp_enqueue_style('wpptopdfenhadminstyle', WPPT0PDFENH_URL . '/asset/css/admin.css', false, '1.0', 'all');
+            wp_enqueue_style('wpptopdfenhadminstyle', WPPTOPDFENH_URL . '/asset/css/admin.css', false, '1.0', 'all');
         }
 
         /*function on_admin_print_scripts() {
-          wp_enqueue_script('wpptopdfenhadminstyle', WPPT0PDFENH_URL . '/asset/css/admin.css',false, '1.0', 'all');
+          wp_enqueue_script('wpptopdfenhadminstyle', WPPTOPDFENH_URL . '/asset/css/admin.css',false, '1.0', 'all');
         }*/
 
         function action_links($links)
         {
-            $settings_link = '<a href="options-general.php?page=' . WPPT0PDFENH_BASENAME . '">Settings</a>';
+            $settings_link = '<a href="options-general.php?page=' . WPPTOPDFENH_BASENAME . '">Settings</a>';
             array_unshift($links, $settings_link);
             return $links;
         }
@@ -133,6 +133,17 @@ if (!class_exists('wpptopdfenh')) {
             $post = get_post();
             $content = $post->the_content;{
 
+                if ( !function_exists('has_shortcode')) { 
+
+                    function has_shortcode( $content, $short_code = '' ) { 
+                        $is_short_code = false; 
+                        if ( stripos( $content, '[' . $short_code) !== false ) { 
+                            $is_short_code = true; 
+                        } 
+                        return $is_short_code; 
+                    } 
+                } 
+
                 if( has_shortcode( $content, 'wpptopdfenh' ) ) {
 
                     $include = $this->options['include'];
@@ -144,7 +155,7 @@ if (!class_exists('wpptopdfenh')) {
                     }
                 }
 
-	            $filePath = WPPT0PDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
+	            $filePath = WPPTOPDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
                 $fileMime = 'pdf';
                 $fileName = $post->post_name . '.pdf';
 	            $includeCache = $this->options['includeCache'];
@@ -269,19 +280,19 @@ if (!class_exists('wpptopdfenh')) {
                     }
                 }
 
-            // require_once(WPPT0PDFENH_PATH . '/tcpdf/config/lang/eng.php');
+            // require_once(WPPTOPDFENH_PATH . '/tcpdf/config/lang/eng.php');
 			// to avoid duplicate function error
             if(!class_exists('TCPDF'))
-                require_once(WPPT0PDFENH_PATH . '/tcpdf/tcpdf.php');
+                require_once(WPPTOPDFENH_PATH . '/tcpdf/tcpdf.php');
 
             if(!class_exists('MYPDF'))
-                require_once(WPPT0PDFENH_PATH . '/wpptopdfenh_header.php');
+                require_once(WPPTOPDFENH_PATH . '/wpptopdfenh_header.php');
 
             // to avoid duplicate function error ( conflict with Lightbox Plus v2.4.6 )
             if(!class_exists('simple_html_dom'))
-                require_once(WPPT0PDFENH_PATH . '/simplehtmldom/simple-html-dom.php');
+                require_once(WPPTOPDFENH_PATH . '/simplehtmldom/simple-html-dom.php');
 
-            $filePath = WPPT0PDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
+            $filePath = WPPTOPDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
 
 			// create new PDF document
             $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -332,9 +343,42 @@ if (!class_exists('wpptopdfenh')) {
             // set default monospaced font
             $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
             //set margins
-            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-            $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+            if ($this->options['marginLeft'] > 0){
+                $pdf->SetLeftMargin($this->options['marginLeft']);
+                }else{
+                $pdf->SetLeftMargin(PDF_MARGIN_LEFT);
+                }
+
+            if ($this->options['marginRight'] > 0){
+                $pdf->SetRightMargin($this->options['marginRight']);
+                }else{
+                $pdf->SetRightMargin(PDF_MARGIN_RIGHT);
+                }
+
+            if ($this->options['marginTop'] > 0){
+                $pdf->SetTopMargin($this->options['marginTop']);
+                }else{
+                $pdf->SetTopMargin(PDF_MARGIN_TOP);
+                }
+
+            //$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+            if ($this->options['marginHeader'] > 0){
+                $pdf->SetHeaderMargin($this->options['marginHeader']);
+                }else{
+                $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+                }
+
+            //$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+
+            if ($this->options['marginFooter'] > 0){
+                $pdf->SetFooterMargin($this->options['marginFooter']);
+                }else{
+                $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+                }
+
+            //$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
             //set auto page breaks
             $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
@@ -425,6 +469,11 @@ if (!class_exists('wpptopdfenh')) {
 
             $dom->clear();
 
+	    // Test TCPDF functions to include here
+	    
+	    // set default form properties
+	    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 200), 'strokeColor'=>array(255, 128, 128)));
+
             // Print text using writeHTML
             $pdf->writeHTML($html, true, 0, true, 0);
             // ---------------------------------------------------------
@@ -432,8 +481,8 @@ if (!class_exists('wpptopdfenh')) {
             // This method has several options, check the source code documentation for more information.
 
             // Create directory if not exist
-            if (!is_dir(WPPT0PDFENH_CACHE_DIR))
-                mkdir(WPPT0PDFENH_CACHE_DIR);
+            if (!is_dir(WPPTOPDFENH_CACHE_DIR))
+                mkdir(WPPTOPDFENH_CACHE_DIR);
 
             if ($forceDownload)
                 $pdf->Output($filePath, 'FI');
@@ -532,7 +581,7 @@ if (!class_exists('wpptopdfenh')) {
                     'includeCache' => 0,
                     'iconPosition' => 'before',
                     'iconLeftRight' => 'left',
-                    'imageIcon' => '<img alt="Download PDF" src="' . WPPT0PDFENH_URL . '/asset/images/pdf.png">',
+                    'imageIcon' => '<img alt="Download PDF" src="' . WPPTOPDFENH_URL . '/asset/images/pdf.png">',
                     'headerlogoImageFactor' => 14,
                     'headerAllPages' => 0,
                     'imageScale' => 1.25,
@@ -559,7 +608,7 @@ if (!class_exists('wpptopdfenh')) {
             if (!is_dir(WP_CONTENT_DIR . '/uploads'))
                 mkdir(WP_CONTENT_DIR . '/uploads');
             if (!file_exists(WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png'))
-                copy(WPPT0PDFENH_PATH . '/asset/images/logo.png', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png');
+                copy(WPPTOPDFENH_PATH . '/asset/images/logo.png', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png');
             if (!is_dir(WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache'))
                 mkdir(WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache');
         }
@@ -567,7 +616,7 @@ if (!class_exists('wpptopdfenh')) {
         function on_pre_post_update($id)
         {
             $post = get_post();
-            $filePath = WPPT0PDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
+            $filePath = WPPTOPDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
             if (file_exists($filePath))
                 unlink($filePath);
         }
@@ -600,7 +649,7 @@ if (!class_exists('wpptopdfenh')) {
      * Include shortcode file
      *
      */
-    include(WPPT0PDFENH_PATH . '/wpptopdfenh_shortcodes.php');
+    include(WPPTOPDFENH_PATH . '/wpptopdfenh_shortcodes.php');
 
     }
 }

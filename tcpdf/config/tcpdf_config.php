@@ -57,7 +57,7 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
 	if (substr($k_path_main, -1) != '/') {
 		$k_path_main .= '/';
 	}*/
-  $k_path_main = WPPT0PDFENH_PATH.'/tcpdf/';
+  $k_path_main = WPPTOPDFENH_PATH.'/tcpdf/';
 
 	/**
 	 * Installation path (/var/www/tcpdf/).
@@ -76,7 +76,7 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
 		$k_path_url .= $_SERVER['HTTP_HOST'];
 		$k_path_url .= str_replace( '\\', '/', substr(K_PATH_MAIN, (strlen($_SERVER['DOCUMENT_ROOT']) - 1)));
 	}*/
-  $k_path_url = WPPT0PDFENH_URL.'/tcpdf/';
+  $k_path_url = WPPTOPDFENH_URL.'/tcpdf/';
 
 	/**
 	 * URL path to tcpdf installation folder (http://localhost/tcpdf/).
