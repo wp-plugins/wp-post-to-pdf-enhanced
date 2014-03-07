@@ -5,7 +5,7 @@ Donate Link: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-p
 Tags: pdf, post, posts, post to pdf, tcpdf, printable, content, convert, stand-alone, stand alone, acrobat
 Requires at least: 2.7
 Tested up to: 3.8.1
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,10 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Reworked admin area to provide better organization of options.
 * Added ability to specify left, right, and top margins for content, as well as header and footer margins.
 * Code cleanup: Renamed constant stems to "WPPTOPDF" from "WPPT0PDF"
+
+= 1.0.4 =
+
+* Fixed issue with deprecated get_bloginfo('siteurl') when inserting the blog url in the header.
 
 = 1.0.3 =
 
