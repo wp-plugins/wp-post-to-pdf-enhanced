@@ -332,9 +332,9 @@ if (!class_exists('wpptopdfenh')) {
             //$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
             // set default header data, as appropriate for PHP 5.4 or below
 	    if (version_compare(phpversion(), '5.4.0', '<')) {
-                $pdf->setHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_QUOTES);
+                $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . home_url()), ENT_COMPAT | ENT_QUOTES);
 	        }else{
-                $pdf->setHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . get_bloginfo('siteurl')), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES);
+                $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . home_url()), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES);
 	        }
 
             // set header and footer fonts
