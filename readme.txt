@@ -72,6 +72,7 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 = 1.1.0 (development) =
 
+* Fixed issue where we were updating phantom page/post when nav-menu admin page save button was pressed.
 * Added ability to create custom footer (visible only in PDF); implemented admin panel options for this. Footer is stored in the db.
 * Reworked admin area to provide better organization of options.
 * Added ability to specify left, right, and top margins for content, as well as header and footer margins.

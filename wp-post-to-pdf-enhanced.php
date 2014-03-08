@@ -43,6 +43,9 @@ define('WPPTOPDFENH_URL', WP_PLUGIN_URL . '/wp-post-to-pdf-enhanced');
 define('WPPTOPDFENH_BASENAME', plugin_basename(__FILE__));
 define('WPPTOPDFENH_CACHE_DIR', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache/' . $blog_id);
 
+// Include this here, because we'll need it earlier than it is normally loaded
+require_once(ABSPATH . 'wp-admin/includes/screen.php');
+
 if (!class_exists('wpptopdfenh')) {
 
     class wpptopdfenh
@@ -58,8 +61,13 @@ if (!class_exists('wpptopdfenh')) {
                 add_action('admin_menu', array(&$this, 'on_admin_menu'));
                 add_filter("plugin_action_links_" . WPPTOPDFENH_BASENAME, array(&$this, 'action_links'));
                 register_activation_hook(WPPTOPDFENH_BASENAME, array(&$this, 'on_activate'));
-                add_action('pre_post_update', array(&$this, 'on_pre_post_update'));
-                add_action('post_updated', array(&$this, 'generate_pdf_file'));
+
+                   // Ugly workaround to keep from firing when navigation menus are saved
+                   $screen = get_current_screen();
+                   if ( !empty( $screen ) && $screen->id != 'nav-menus' ) {
+                       add_action('pre_post_update', array(&$this, 'on_pre_post_update'));
+                       add_action('post_updated', array(&$this, 'generate_pdf_file'));
+                   }
             } else {
                 add_action('wp', array(&$this, 'generate_pdf'));
                 add_filter('the_content', array(&$this, 'add_button'));
