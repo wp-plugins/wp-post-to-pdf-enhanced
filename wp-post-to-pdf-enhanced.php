@@ -334,7 +334,7 @@ if (!class_exists('wpptopdfenh')) {
 		}
 
 	    // if the logo has an alpha channel, we need to use the Image() function to display it (TCPDF > 6.0.43)
-	    //$pdf->Image($logo, '', '', '', '', '', get_bloginfo('siteurl'), '', '', '', '', false, false, '', '', false, false, false, '');
+	    //$pdf->Image($logo, '', '', '', '', '', get_bloginfo('url'), '', '', '', '', false, false, '', '', false, false, false, '');
 
             //$pdf->SetSubject('TCPDF Tutorial');
             //$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
@@ -345,6 +345,13 @@ if (!class_exists('wpptopdfenh')) {
                 $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . home_url()), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES);
 	        }
 
+            // if set in config, suppress header entirely
+            if ( isset( $this->options['headerAllPages'] ) ) {
+                if ($this->options['headerAllPages'] = 2) {
+                    $pdf->setPrintHeader(false);
+                    }
+                }
+            
             // set header and footer fonts
             $pdf->setHeaderFont(Array($this->options['headerFont'], '', $this->options['headerFontSize']));
             $pdf->setFooterFont(Array($this->options['footerFont'], '', $this->options['footerFontSize']));

@@ -11,8 +11,11 @@ if(!class_exists('TCPDF'))
     require_once(WPPTOPDFENH_PATH . '/tcpdf/tcpdf.php');
 
 // if we have not set the option to include the header on all pages, define a constant
-if ( !isset( $this->options['headerAllPages'] ) )
-	define ('WPPTOPDFENH_HEADER_FIRST_PAGE_ONLY', 'Y');
+if ( isset( $this->options['headerAllPages'] ) ) {
+        if ($this->options['headerAllPages'] = 1) {
+		define ('WPPTOPDFENH_HEADER_FIRST_PAGE_ONLY', 'Y');
+		}
+	}
 
 // if we have enabled a custom footer, define those values as constants
 if ( isset( $this->options['customFooter'] ) ){

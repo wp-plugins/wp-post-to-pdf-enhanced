@@ -238,13 +238,29 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
 
 <div class="wpptopdfenh-option-body">
     <table class="form-table">
-            <th scope="row">Header All Pages</th>
+       <?php $header = array('Suppressed' => '2', 'First Page Only' => '1', 'All Pages' => '0'); ?>
+        <tr valign="top">
+            <th scope="row">Header Display</th>
             <td>
-                <input name="wpptopdfenh[headerAllPages]"
-                       value="1" <?php echo (isset($wpptopdfenhopts['headerAllPages'])) ? 'checked="checked"' : ''; ?>
-                       type="checkbox"/>
+                <?php
+                      echo '<select name="wpptopdfenh[headerAllPages]">';
+                    foreach ($header as $key => $value) {
+                        if ($wpptopdfenhopts['headerAllPages'] == '') { 'selected="All Pages"';
+                            $checked = ($wpptopdfenhopts['headerAllPages'] == $value) ? 'selected="selected"' : '';
+                        echo '<option value="' . $value . '" ' . $checked . ' >' . $key . '</option>';
 
-                <p>Select if you would like to display the header on all pages in the PDF. If unchecked, the header will only appear on the first page.</p>
+                        }
+	                else {
+
+                        if ($wpptopdfenhopts['headerAllPages'])
+                            $checked = ($wpptopdfenhopts['headerAllPages'] == $value) ? 'selected="selected"' : '';
+                        echo '<option value="' . $value . '" ' . $checked . ' >' . $key . '</option>';
+			}
+                    }
+ 
+                    echo '</select>';
+                    ?>
+                    <p>Select if you would like to include the header in the PDF, and whether it should be on all pages or just the first page (default is All Pages).</p>
             </td>
         </tr>
         <tr valign="top">
