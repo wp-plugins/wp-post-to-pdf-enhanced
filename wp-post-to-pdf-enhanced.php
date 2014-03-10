@@ -302,8 +302,30 @@ if (!class_exists('wpptopdfenh')) {
 
             $filePath = WPPTOPDFENH_CACHE_DIR . '/' . $post->post_name . '.pdf';
 
-			// create new PDF document
-            $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            // create new PDF document
+            
+            if (isset($this->options['pageSize']))
+                {
+                $pagesize = ($this->options['pageSize']);
+            } else {
+                $pagesize = PDF_PAGE_FORMAT;
+            }
+
+            if (isset($this->options['unitMeasure']))
+                {
+                $unit = ($this->options['unitMeasure']);
+            } else {
+                $unit = PDF_UNIT;
+            }
+
+            if (isset($this->options['orientation']))
+                {
+                $orientation = ($this->options['orientation']);
+            } else {
+                $unit = PDF_PAGE_ORIENTATION;
+            }
+
+            $pdf = new MYPDF($orientation, $unit, $pagesize, true, 'UTF-8', false);
 
             // Let other filter modify content if selected
             if (isset($this->options['otherPlugin']))
@@ -473,18 +495,59 @@ if (!class_exists('wpptopdfenh')) {
             $dom = new simple_html_dom();
             $dom->load($html);
 
-            // Try to respect alignment of images
-            foreach($dom->find('img') as $e){
-                $e->align = null;
-                $e->outertext = '<div>' . $e->outertext . '</div>';
-            }
-            
+            foreach($dom->find('img') as $e)
+            {
+                // Try to respect alignment of images
+                // This code is under heavy development, so well-commented
 
+                // First, try to determine the desired alignment from the class attribute inserted by WP.
+                // Note that as we're still working with HTML vs CSS, and HTML uses "middle" for center, we
+                // have two variables to fill for that possibility.
+                if (preg_match ( '/alignleft/i', $e->class ) )
+                    {
+                    $imgalign = 'left';
+                } elseif (preg_match ( '/alignright/i', $e->class ) ) {
+                    $imgalign = 'right';
+                } elseif (preg_match ( '/aligncenter/i', $e->class ) ) {
+                    $imgalign = 'center';
+                    $htmlimgalign = 'middle';
+                } else {
+                    $imgalign = 'none';
+                }    
+                
+                // These options apply to all images. Remove any embedded class, which is ignored by TCPDF, anyway;
+                // then set an align attribute inside the img tag (for HTML), and finally, a style tag (for CSS).
+                $e->class = null;
+                $e->align = $imgalign;
+                if (isset ( $htmlimgalign) )
+                    {
+                    $e->style= 'float:' . $htmlimgalign;
+                } else {
+                    $e->style= 'float:' . $imgalign;
+                }
+
+                // Try to identify SVG images vs JPG or PNG, so that we treat them correctly. Currently, we don't
+                // handle these well, so we'll just swap them with placeholder links.
+                // Note that we're still using div tags to (harshly) force images into some semblance of horizontal
+                // position. This precludes text wrap, and ultimately (if we can get the above working) should be 
+                // replaced (unless we need the text link) with the CSS in the img tag (if TCPDF will respect it).
+                if ( strtolower ( substr ( $e->src, -4 ) ) == '.svg' )
+                    {
+                    $e->src = null;
+
+                    $e->outertext = '<div style="text-align:' . $imgalign . '">[ SVG: ' . $e->alt . ' ]</div><br/>';
+                } else {
+
+                    $e->outertext = '<div style="text-align:' . $imgalign . '">' . $e->outertext . '</div>';
+                }
+            }
+                        
             $html = $dom->save();
 
             $dom->clear();
 
-	    // Test TCPDF functions to include here
+	    // Test TCPDF functions to include here.
+	    // Presently, we're working with trying to get PDF forms working. These options should go into the admin UI.
 	    
 	    // set default form properties
 	    $pdf->setFormDefaultProp(array('lineWidth'=>1, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 200), 'strokeColor'=>array(255, 128, 128)));
@@ -605,7 +668,7 @@ if (!class_exists('wpptopdfenh')) {
                     'footerMinHeight' => 0,
                     'footerWidth' => 0,
                     'footerX' => 10,
-                    'footerY' => 270,
+                    'footerY' => 260,
                     'footerFill' => 0,
                     'footerPad' => 1,
                     'headerFont' => 'helvetica',
@@ -614,6 +677,9 @@ if (!class_exists('wpptopdfenh')) {
                     'footerFontSize' => 10,
                     'contentFont' => 'helvetica',
                     'contentFontSize' => 12,
+                    'pageSize' => 'LETTER',
+                    'unitMeasure' => 'mm',
+                    'orientation' => 'P',
                 );
             if (!get_option('wpptopdfenh')) {
                 add_option('wpptopdfenh', $default);

@@ -76,6 +76,9 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Added ability to create custom footer (visible only in PDF); implemented admin panel options for this. Footer is stored in the db.
 * Added ability to specify left, right, and top margins for content, as well as header and footer margins.
 * Added option to completely suppress the header; changed admin UI to dropdown for header options.
+* Added options for page format (size; default is now LETTER), orientation (default is portrait), and unit of measurement (default is mm).
+* Worked around difficulty rendering SVG images by removing them. Currently, we hardcode "[ SVG: alternate text ]" for the replacement; the link stays active.
+* More work to try to get images aligned properly (still in progress).
 * Reworked admin area to provide better organization of options.
 * Code cleanup: Renamed constant stems to "WPPTOPDF" from "WPPT0PDF"
 
