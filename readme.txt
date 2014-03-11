@@ -53,7 +53,7 @@ See the previous entry. Missing graphics and such are common symptoms of non-sta
 
 = Non-English characters (Cyrillic, etc.) are shown as "?" in the PDF. What's wrong? =
 
-The default fonts used are Helvetica, which is not a Unicode font. To avoid downloading the entire font package (such as a DejaVu font), try Arial Unicode. You may set this in the options panel, under PDF Formatting Options.
+The default fonts used are Helvetica, which is a core (built into most PDF viewers) font, but not a Unicode font. This avoids downloading the entire font package. However, if you find that your text is not rendering, try a DejaVu font first, before reporting this as a bug. You may set this in the options panel.
 
 = Where do I go to report a problem? =
 
