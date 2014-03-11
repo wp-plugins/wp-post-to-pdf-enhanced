@@ -51,7 +51,7 @@ WP Post to PDF Enhanced is a wrapper for the TCPDF library, which does all the h
 
 See the previous entry. Missing graphics and such are common symptoms of non-standard HTML preceding the image, causing TCPDF to simply stop processing the input data.
 
-= Non-English characters (Cyrillic, etc.) are shown as "?" in the PDF. What's wrong?
+= Non-English characters (Cyrillic, etc.) are shown as "?" in the PDF. What's wrong? =
 
 The default fonts used are Helvetica, which is not a Unicode font. To avoid downloading the entire font package (such as a DejaVu font), try Arial Unicode. You may set this in the options panel, under PDF Formatting Options.
 
