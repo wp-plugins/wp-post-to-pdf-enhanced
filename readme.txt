@@ -27,9 +27,15 @@ For detailed documentation visit [the support page] http://www.2rosenthals.net/w
 
 == Frequently Asked Questions ==
 
+= I'm using a release version now, but want to try a development version. What is the best way for me to retain my settings? =
+
+While an upgrade facility is under development, it is not yet ready for use. Therefor, the recommended method for installing a development (trunk or branch) build is to do the following:
+
+If you have database access, before installing a development build, export the contents of the wpptopdfenh row in the wp_options table, install the development version, and then copy/paste your prior settings back into the database as you want them, being careful not to overwrite any of the new options with their default values.
+
 = I've been using the original WP Post to PDF plugin. How do I migrate my settings to WP Post to PDF Enhanced? =
 
-Presently, there is no automated way of migrating optioins from one plugin to the other.
+Presently, there is no automated way of migrating options from one plugin to the other.
 
 If you have database access, before installing WP Post to PDF Enhanced, create a new row in the `wp_options` table. Assign a unique `option_id` value, set the `option_name` to `wpptopdfenh`, and copy the contents of the `wpptopdf option_value` field to the new `wpptopdfenh option_value` field. You may need to edit any path references referencing `/wp-post-to-pdf` to `/wp-post-to-pdf-enhanced`.
 
@@ -80,7 +86,25 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * Worked around difficulty rendering SVG images by removing them. Currently, we hardcode "[ SVG: alternate text ]" for the replacement; the link stays active.
 * More work to try to get images aligned properly (still in progress).
 * Reworked admin area to provide better organization of options.
-* Code cleanup: Renamed constant stems to "WPPTOPDF" from "WPPT0PDF"
+* Code cleanup: Renamed constant stems to "WPPTOPDF" from "WPPT0PDF".
+* Updated TCPDF to 6.0.062.
+* To-do: Add option to specify custom header.
+* To-do: Shortcode - Allow for hiding text from PDF.
+* To-do: Add option to allow for content to be added outside the link tag for the PDF icon/link.
+* To-do: Add option to mask "Categories: ", "Tags: ", "Author: ", etc. titles.
+* To-do: Implement upgrade facility to retain existing settings and add new db options; convert existing options to newer format/labels.
+* To-do: Shortcode - Allow for overriding automatic LTR / RTL for text between opening & closing shortcode.
+* To-do: Shortcode - Allow different icon for shortcode.
+* To-do: Shortcode - Allow arguments for shortcodes (fonts, external css, other options).
+* To-do: Implement filter to strip shortcodes (when Process Shortcodes is deselected) /except/ for our shortcodes.
+* To-do: Fix (once and for all) image alignment issues.
+* To-do: Add option to change formatting of tags & categories from links to plain text.
+* To-do: Add option to include custom fields in header.
+* To-do: Allow limiting category list to just the first category; allow for relocating this to footer, left, right, center).
+* To-do: Allow limiting tag list to just the first tag; allow for relocating this to footer, left, right, center).
+* To-do: Add option to specify the separator in a list of categories & list of tags.
+* To-do: Add option to remove paragraph break between author, categories, tags, date (to format better and waste less vertical space).
+* To-do: Shortcode - Allow exception to site-wide image scaling factor (and add other shortcodes as overrides for various options set in the admin panel).
 
 = 1.0.4 =
 

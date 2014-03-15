@@ -3,7 +3,7 @@
 Plugin Name: WP Post to PDF Enhanced
 Plugin URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
 Description: WP Post to PDF Enhanced, based on WP Post to PDF by Neerav Dobaria, renders posts & pages as downloadable PDFs for archiving and/or printing.
-Version: 1.1.0
+Version: 1.1.0b20140315
 License: GPLv2
 Author: Lewis Rosenthal
 Author URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
@@ -29,22 +29,21 @@ if (!function_exists('add_action')) {
     exit();
 }
 
-//Debug settings - uncomment for noise and commentary
-//ini_set('display_errors', 'On');
-//error_reporting(E_ALL | E_STRICT);
-
 // Define certain terms which may be required throughout the plugin
 global $blog_id;
-define('WPPTOPDF_NAME', 'WP Post to PDF Enhanced');
+define('WPPTOPDFENH_NAME', 'WP Post to PDF Enhanced');
 define('WPPTOPDFENH_SNAME', 'wpptopdfenh');
-if (!defined('WPPTOPDFENH_PATH'))
+if (!defined('WPPTOPDFENH_PATH'))    
     define('WPPTOPDFENH_PATH', WP_PLUGIN_DIR . '/wp-post-to-pdf-enhanced');
+
 define('WPPTOPDFENH_URL', WP_PLUGIN_URL . '/wp-post-to-pdf-enhanced');
 define('WPPTOPDFENH_BASENAME', plugin_basename(__FILE__));
 define('WPPTOPDFENH_CACHE_DIR', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache/' . $blog_id);
+if (!defined('WPPTOPDFENH_VERSION_NUM'))
+    define('WPPTOPDFENH_VERSION_NUM', '1.1.0b20140315');
 
 // Include this here, because we'll need it earlier than it is normally loaded
-require_once(ABSPATH . 'wp-admin/includes/screen.php');
+//require_once(ABSPATH . 'wp-admin/includes/screen.php');
 
 if (!class_exists('wpptopdfenh')) {
 
@@ -63,11 +62,17 @@ if (!class_exists('wpptopdfenh')) {
                 register_activation_hook(WPPTOPDFENH_BASENAME, array(&$this, 'on_activate'));
 
                    // Ugly workaround to keep from firing when navigation menus are saved
-                   $screen = get_current_screen();
-                   if ( !empty( $screen ) && $screen->id != 'nav-menus' ) {
-                       add_action('pre_post_update', array(&$this, 'on_pre_post_update'));
-                       add_action('post_updated', array(&$this, 'generate_pdf_file'));
-                   }
+//                   $screen = get_current_screen();
+//                   if ( !empty( $screen ) && $screen->id != 'nav-menus' ) {
+//                       add_action('pre_post_update', array(&$this, 'on_pre_post_update'));
+//                       add_action('post_updated', array(&$this, 'generate_pdf_file'));
+                $post_types = get_post_types( array( 'public'   => true ),'names' );
+                foreach( $post_types as $post_type ) {
+                    if( array( isset( $this->options[$post_type] ) ) == get_post_type() ) {
+                        add_action( 'pre_post_update', array( &$this, 'on_pre_post_update' ) );
+                        add_action( 'post_updated', array( &$this, 'generate_pdf_file' ) );
+                    }
+                }
             } else {
                 add_action('wp', array(&$this, 'generate_pdf'));
                 add_filter('the_content', array(&$this, 'add_button'));
@@ -367,13 +372,6 @@ if (!class_exists('wpptopdfenh')) {
                 $pdf->SetHeaderData($logo, $logowidth, html_entity_decode(get_bloginfo('name'), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES), html_entity_decode(get_bloginfo('description') . "\n" . home_url()), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES);
 	        }
 
-            // if set in config, suppress header entirely
-            if ( isset( $this->options['headerAllPages'] ) ) {
-                if ($this->options['headerAllPages'] = 2) {
-                    $pdf->setPrintHeader(false);
-                    }
-                }
-            
             // set header and footer fonts
             $pdf->setHeaderFont(Array($this->options['headerFont'], '', $this->options['headerFontSize']));
             $pdf->setFooterFont(Array($this->options['footerFont'], '', $this->options['footerFontSize']));
@@ -442,6 +440,9 @@ if (!class_exists('wpptopdfenh')) {
             if ($this->options['applyCSS']){
 	        $html .= '<style>'.$this->options['customCss'].'</style>';
 	        }
+
+            // Mask from the PDF anything with a class of wpptopdfenh
+            $html .= '<style>wpptopdfenh { display: none; }</style>';
 
             // Set some content to print
             $html .= '<h1>' . html_entity_decode($post->post_title, ENT_QUOTES) . '</h1>';
@@ -661,9 +662,20 @@ if (!class_exists('wpptopdfenh')) {
                     'iconLeftRight' => 'left',
                     'imageIcon' => '<img alt="Download PDF" src="' . WPPTOPDFENH_URL . '/asset/images/pdf.png">',
                     'headerlogoImageFactor' => 14,
-                    'headerAllPages' => 0,
                     'imageScale' => 1.25,
+                    'headerAllPages' => 'all',
+                    'headerFont' => 'helvetica',
+                    'headerFontSize' => 10,
+                    'footerFont' => 'helvetica',
+                    'footerFontSize' => 10,
+                    'contentFont' => 'helvetica',
+                    'contentFontSize' => 12,
                     'applyCSS' => 0,
+                    'marginHeader' => 5,
+                    'marginTop' => 27,
+                    'marginLeft' => 15,
+                    'marginRight' => 15,
+                    'marginFooter' => 10,
                     'customFooter' => 0,
                     'footerMinHeight' => 0,
                     'footerWidth' => 0,
@@ -671,15 +683,10 @@ if (!class_exists('wpptopdfenh')) {
                     'footerY' => 260,
                     'footerFill' => 0,
                     'footerPad' => 1,
-                    'headerFont' => 'helvetica',
-                    'headerFontSize' => 10,
-                    'footerFont' => 'helvetica',
-                    'footerFontSize' => 10,
-                    'contentFont' => 'helvetica',
-                    'contentFontSize' => 12,
                     'pageSize' => 'LETTER',
                     'unitMeasure' => 'mm',
                     'orientation' => 'P',
+                    'pluginVer' => WPPTOPDFENH_VERSION_NUM,
                 );
             if (!get_option('wpptopdfenh')) {
                 add_option('wpptopdfenh', $default);
@@ -692,6 +699,24 @@ if (!class_exists('wpptopdfenh')) {
                 copy(WPPTOPDFENH_PATH . '/asset/images/logo.png', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png');
             if (!is_dir(WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache'))
                 mkdir(WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache');
+                
+            // Check if we are doing an upgrade. If the version option is not set, set it to the last version before this
+            // was stored in the db (it should fail gracefully, if already set). Then add options from the array above which
+            // have been added in versions later than what we are upgrading. Later, we can use this to migrate our options
+            // to our own table, too.
+
+            // 2014-03-12: not getting the array_slice properly!!
+            //if ( !isset ( $this->options['pluginVer'] ) )
+            //   update_option( 'wpptopdfenh', array ( get_option ( 'wpptopdfenh' ), 'pluginVer' => '1.0.4' ) );
+            //switch ( $this->options['pluginVer'] ) {
+            //    case "1.0.4":
+            //    add_option('wpptopdfenh', array ( get_option ( 'wpptopdfenh' ), array_slice ( $default, 16 ) ) );
+            //    break;
+            //    case WPPTOPDFENH_VERSION_NUM:
+            //}
+            // Finally, set the new version in the db.
+            //add_option( 'wpptopdfenh', array_slice ( $default, -1 ) );
+
         }
 
         function on_pre_post_update($id)

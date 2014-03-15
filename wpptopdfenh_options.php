@@ -237,28 +237,19 @@ $wpptopdfenhopts = get_option('wpptopdfenh'); ?>
 
 <div class="wpptopdfenh-option-body">
     <table class="form-table">
-       <?php $header = array('Suppressed' => '2', 'First Page Only' => '1', 'All Pages' => '0'); ?>
         <tr valign="top">
             <th scope="row">Header Display</th>
             <td>
                 <?php
-                      echo '<select name="wpptopdfenh[headerAllPages]">';
-                    foreach ($header as $key => $value) {
-                        if ($wpptopdfenhopts['headerAllPages'] == '') { 'selected="All Pages"';
-                            $checked = ($wpptopdfenhopts['headerAllPages'] == $value) ? 'selected="selected"' : '';
-                        echo '<option value="' . $value . '" ' . $checked . ' >' . $key . '</option>';
-
-                        }
-	                else {
-
-                        if ($wpptopdfenhopts['headerAllPages'])
-                            $checked = ($wpptopdfenhopts['headerAllPages'] == $value) ? 'selected="selected"' : '';
-                        echo '<option value="' . $value . '" ' . $checked . ' >' . $key . '</option>';
-			}
+                      $header = array( 'All Pages' => 'all', 'First Page Only' => 'first', 'Suppressed' => 'none' );
+                echo '<select name="wpptopdfenh[headerAllPages]">';
+                foreach ($header as $key => $value) {
+                    if ($wpptopdfenhopts['headerAllPages'])
+                        $checked = ($wpptopdfenhopts['headerAllPages'] == $value) ? 'selected="selected"' : '';
+                    echo '<option value="' . $value . '" ' . $checked . ' >' . $key . '</option>';
                     }
- 
-                    echo '</select>';
-                    ?>
+                     echo '</select>';
+                    ?><br/>
                     <p>Select if you would like to include the header in the PDF, and whether it should be on all pages or just the first page (default is All Pages).</p>
             </td>
         </tr>
