@@ -103,7 +103,7 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
 	/**
 	 *images directory
 	 */
-	define ('K_PATH_IMAGES', '');
+	define ('K_PATH_IMAGES', WP_CONTENT_DIR.'/uploads/');
 
 	/**
 	 * blank image

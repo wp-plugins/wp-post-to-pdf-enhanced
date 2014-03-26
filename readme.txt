@@ -79,13 +79,17 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 = 1.1.0 (development) =
 
 * Fixed issue where we were updating phantom page/post when nav-menu admin page save button was pressed.
+* Added shortcode to overriding automatic LTR / RTL for text between opening & closing shortcode (not working yet).
+* Added shortcode to insert TCPDF method in-line.
 * Added ability to create custom footer (visible only in PDF); implemented admin panel options for this. Footer is stored in the db.
 * Added ability to specify left, right, and top margins for content, as well as header and footer margins.
 * Added option to completely suppress the header; changed admin UI to dropdown for header options.
 * Added options for page format (size; default is now LETTER), orientation (default is portrait), and unit of measurement (default is mm).
+* Added plugin version to database to better facilitate upgrades.
 * Worked around difficulty rendering SVG images by removing them. Currently, we hardcode "[ SVG: alternate text ]" for the replacement; the link stays active.
 * More work to try to get images aligned properly (still in progress).
 * Reworked admin area to provide better organization of options.
+* Code cleanup: Major cleanup with wp-phptidy (new version; see http://www.2rosenthals.net/wordpress/wp-phptidy) to better conform to WP coding standards and best practices.
 * Code cleanup: Renamed constant stems to "WPPTOPDF" from "WPPT0PDF".
 * Updated TCPDF to 6.0.062.
 * To-do: Add option to specify custom header.
@@ -93,7 +97,6 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 * To-do: Add option to allow for content to be added outside the link tag for the PDF icon/link.
 * To-do: Add option to mask "Categories: ", "Tags: ", "Author: ", etc. titles.
 * To-do: Implement upgrade facility to retain existing settings and add new db options; convert existing options to newer format/labels.
-* To-do: Shortcode - Allow for overriding automatic LTR / RTL for text between opening & closing shortcode.
 * To-do: Shortcode - Allow different icon for shortcode.
 * To-do: Shortcode - Allow arguments for shortcodes (fonts, external css, other options).
 * To-do: Implement filter to strip shortcodes (when Process Shortcodes is deselected) /except/ for our shortcodes.
