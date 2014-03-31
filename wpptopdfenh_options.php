@@ -318,6 +318,65 @@ else {
             </td>
         </tr>
         <tr valign="top">
+            <th scope="row">Custom Bullet Image</th>
+            <td>
+                <input name="wpptopdfenh[liSymbol]"
+                       value="1" <?php echo ( isset( $wpptopdfenhopts['liSymbol'] ) ) ? 'checked="checked"' : ''; ?>
+                       type="checkbox"/>
+                <p>Select if you would like to render list bullets in the PDF as an image. If so, please specify details, below.</p>
+            </td>
+        </tr>
+       <?php $symbol = array( 
+		'JPG' => 'jpg', 
+		'PNG' => 'png',
+		); ?>
+        <tr valign="top">
+            <th scope="row">Custom Bullet Image Type</th>
+            <td>
+                <?php
+echo '<select name="wpptopdfenh[liSymbolType]">';
+foreach ( $symbol as $key => $value ) {
+	if ( $wpptopdfenhopts['liSymbolType'] == '' ) {
+		'selected="JPG"';
+		$checked = ( $wpptopdfenhopts['liSymbolType'] == $value ) ? 'selected="selected"' : '';
+		echo '<option value="' . $value . '" ' . $checked . ' >' . $key . '</option>';
+	} else {
+		if ( $wpptopdfenhopts['liSymbolType'] ) {
+			$checked = ( $wpptopdfenhopts['liSymbolType'] == $value ) ? 'selected="selected"' : '';
+		}
+		echo '<option value="' . $value . '" ' . $checked . ' >' . $key . '</option>';
+	}
+}
+echo '</select>';
+?>
+                    <p>Select the custom bullet image file type (default is JPG).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Custom Bullet Image Width</th>
+            <td>
+                <input type="text" name="wpptopdfenh[liSymbolWidth]" id="wpptopdfenh[liSymbolWidth]"
+                       value="<?php echo ( $wpptopdfenhopts['liSymbolWidth'] ) ? $wpptopdfenhopts['liSymbolWidth'] : '3'; ?>"/>
+                <p>Enter your desired width for the bullet image (default is 3<?php echo $wpptopdfenhopts['unitMeasure']?>).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Custom Bullet Image Height</th>
+            <td>
+                <input type="text" name="wpptopdfenh[liSymbolHeight]" id="wpptopdfenh[liSymbolHeight]"
+                       value="<?php echo ( $wpptopdfenhopts['liSymbolHeight'] ) ? $wpptopdfenhopts['liSymbolHeight'] : '2'; ?>"/>
+                <p>Enter your desired height for the bullet image (default is 2<?php echo $wpptopdfenhopts['unitMeasure']?>).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Custom Bullet Image File</th>
+            <td>
+                <input type="text" name="wpptopdfenh[liSymbolFile]" id="wpptopdfenh[liSymbolFile]"
+                       value="<?php echo ( $wpptopdfenhopts['liSymbolFile'] ) ? $wpptopdfenhopts['liSymbolFile'] : ''; ?>"/>
+                <p>Enter your desired custom image file for list bullets (upload to '<?php echo WP_CONTENT_DIR . '/uploads/'; ?>').</p>
+            </td>
+        </tr>
+        <tr valign="top">
             <th scope="row">Top Margin</th>
             <td>
                 <input type="text" name="wpptopdfenh[marginTop]" id="wpptopdfenh[marginTop]"

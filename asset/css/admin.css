@@ -51,7 +51,7 @@ div.wpptopdfenh-option-body {
     width: 500px;
 }
 
-textarea#customFooterText, textarea#imagePlaceholderText, input#wpptopdfenh\[footerCellBorder\], textarea#customCssSrc, textarea#imageIconSrc, input#wpptopdfenh\[excludeThis\], input#wpptopdfenh\[excludeThisCache\]{
+textarea#customFooterText, textarea#imagePlaceholderText, input#wpptopdfenh\[liSymbolFile\], input#wpptopdfenh\[footerCellBorder\], textarea#customCssSrc, textarea#imageIconSrc, input#wpptopdfenh\[excludeThis\], input#wpptopdfenh\[excludeThisCache\]{
     width: 100% !important;
 }
 
@@ -59,7 +59,7 @@ textarea#customFooterText, textarea#customCssSrc{
     height: 250px !important;
 }
 
-input#wpptopdfenh\[footerMinHeight\], input#wpptopdfenh\[footerWidth\], input#wpptopdfenh\[footerX\], input#wpptopdfenh\[footerY\], input#wpptopdfenh\[headerlogoImageFactor\], input#wpptopdfenh\[marginHeader\], input#wpptopdfenh\[marginFooter\], input#wpptopdfenh\[marginTop\], input#wpptopdfenh\[marginLeft\], input#wpptopdfenh\[marginRight\], input#wpptopdfenh\[imageScale\], input#wpptopdfenh\[headerFontSize\], input#wpptopdfenh\[footerFontSize\], input#wpptopdfenh\[contentFontSize\]{
+input#wpptopdfenh\[liSymbolWidth\], input#wpptopdfenh\[liSymbolHeight\], input#wpptopdfenh\[footerMinHeight\], input#wpptopdfenh\[footerWidth\], input#wpptopdfenh\[footerX\], input#wpptopdfenh\[footerY\], input#wpptopdfenh\[headerlogoImageFactor\], input#wpptopdfenh\[marginHeader\], input#wpptopdfenh\[marginFooter\], input#wpptopdfenh\[marginTop\], input#wpptopdfenh\[marginLeft\], input#wpptopdfenh\[marginRight\], input#wpptopdfenh\[imageScale\], input#wpptopdfenh\[headerFontSize\], input#wpptopdfenh\[footerFontSize\], input#wpptopdfenh\[contentFontSize\]{
     width: 50px !important;
 }
 

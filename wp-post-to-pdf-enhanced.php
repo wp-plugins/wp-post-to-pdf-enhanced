@@ -3,7 +3,7 @@
  * Plugin Name: WP Post to PDF Enhanced
  * Plugin URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
  * Description: WP Post to PDF Enhanced, based on WP Post to PDF by Neerav Dobaria, renders posts & pages as downloadable PDFs for archiving and/or printing.
- * Version: 1.1.0b20140325
+ * Version: 1.1.0b20140331
  * License: GPLv2
  * Author: Lewis Rosenthal
  * Author URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
@@ -35,7 +35,7 @@ define( 'WPPTOPDFENH_URL', WP_PLUGIN_URL . '/wp-post-to-pdf-enhanced' );
 define( 'WPPTOPDFENH_BASENAME', plugin_basename( __FILE__ ) );
 define( 'WPPTOPDFENH_CACHE_DIR', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache/' . $blog_id );
 if ( ! defined( 'WPPTOPDFENH_VERSION_NUM' ) ) {
-	define( 'WPPTOPDFENH_VERSION_NUM', '1.1.0b20140323' );
+	define( 'WPPTOPDFENH_VERSION_NUM', '1.1.0b20140331' );
 }
 if ( ! class_exists( 'wpptopdfenh' ) ) {
 	class wpptopdfenh {
@@ -284,8 +284,6 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 					$logowidth = (int)( ( 14 * $logodata[0] ) / $logodata[1] );
 				}
 			}
-			// if the logo has an alpha channel, we need to use the Image() function to display it (TCPDF > 6.0.43)
-			//$pdf->Image($logo, '', '', '', '', '', get_bloginfo('url'), '', '', '', '', false, false, '', '', false, false, false, '');
 			//$pdf->SetSubject('TCPDF Tutorial');
 			//$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 			// set default header data, as appropriate for PHP 5.4 or below
@@ -334,6 +332,11 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 				$pdf->setImageScale( PDF_IMAGE_SCALE_RATIO );
 			}
 			// ---------------------------------------------------------
+			// Set the default LI image, if specified
+			if ( isset( $this->options['liSymbol'] ) ) {
+				$lisymbol = 'img|' . $this->options['liSymbolType'] . '|' . $this->options['liSymbolWidth'] . '|' . $this->options['liSymbolHeight'] . '|' . WP_CONTENT_DIR . '/uploads/' . $this->options['liSymbolFile'];
+				$pdf->setLIsymbol( $lisymbol );
+			}
 			// set default font subsetting mode
 			$pdf->setFontSubsetting( true );
 			// Set font
@@ -348,16 +351,12 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			if ( $this->options['applyCSS'] ) {
 				$html .= '<style>'.$this->options['customCss'].'</style>';
 			}
-			// Mask from the PDF anything with a class of wpptopdfenh
-			$html .= '<style>wpptopdfenh { display: none; }</style>';
 			// Set some content to print
 			$html .= '<h1>' . html_entity_decode( $post->post_title, ENT_QUOTES ) . '</h1>';
 			// Display author name is set in config
 			if ( isset( $this->options['authorDetail'] ) ) {
-				if ( $this->options['authorDetail'] ) {
-					$author = get_the_author_meta( $this->options['authorDetail'], $post->post_author );
-					$html .= '<p><strong>Author : </strong>'.$author.'</p>';
-				}
+				$author = get_the_author_meta( $this->options['authorDetail'], $post->post_author );
+				$html .= '<p><strong>Author : </strong>'.$author.'</p>';
 			}
 			// Display category list is set in config
 			if ( isset( $this->options['postCategories'] ) ) {
@@ -526,38 +525,39 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 		function on_activate() {
 			// set default options on activate
 			$default = array(
-				'post' => 1,
-				'page' => 1,
-				'include' => 0,
-				'includeCache' => 0,
-				'iconPosition' => 'before',
-				'iconLeftRight' => 'left',
-				'imageIcon' => '<img alt="Download PDF" src="' . WPPTOPDFENH_URL . '/asset/images/pdf.png">',
+				'post'                  => 1,
+				'page'                  => 1,
+				'include'               => 0,
+				'includeCache'          => 0,
+				'iconPosition'          => 'before',
+				'iconLeftRight'         => 'left',
+				'imageIcon'             => '<img alt="Download PDF" src="' . WPPTOPDFENH_URL . '/asset/images/pdf.png">',
 				'headerlogoImageFactor' => 14,
-				'imageScale' => 1.25,
-				'headerAllPages' => 'all',
-				'headerFont' => 'helvetica',
-				'headerFontSize' => 10,
-				'footerFont' => 'helvetica',
-				'footerFontSize' => 10,
-				'contentFont' => 'helvetica',
-				'contentFontSize' => 12,
-				'applyCSS' => 0,
-				'marginHeader' => 5,
-				'marginTop' => 27,
-				'marginLeft' => 15,
-				'marginRight' => 15,
-				'marginFooter' => 10,
-				'customFooter' => 0,
-				'footerMinHeight' => 0,
-				'footerWidth' => 0,
-				'footerX' => 10,
-				'footerY' => 260,
-				'footerFill' => 0,
-				'footerPad' => 1,
-				'pageSize' => 'LETTER',
-				'unitMeasure' => 'mm',
-				'orientation' => 'P',
+				'imageScale'            => 1.25,
+				'headerAllPages'        => 'all',
+				'headerFont'            => 'helvetica',
+				'headerFontSize'        => 10,
+				'footerFont'            => 'helvetica',
+				'footerFontSize'        => 10,
+				'contentFont'           => 'helvetica',
+				'contentFontSize'       => 12,
+				'marginHeader'          => 5,
+				'marginTop'             => 27,
+				'marginLeft'            => 15,
+				'marginRight'           => 15,
+				'marginFooter'          => 10,
+				'footerMinHeight'       => 0,
+				'footerWidth'           => 0,
+				'footerX'               => 10,
+				'footerY'               => 260,
+				'footerFill'            => 0,
+				'footerPad'             => 1,
+				'pageSize'              => 'LETTER',
+				'unitMeasure'           => 'mm',
+				'orientation'           => 'P',
+				'liSymbolType'          => 'jpg',
+				'liSymbolWidth'         => 3,
+				'liSymbolHeight'        => 2,
 				'pluginVer' => WPPTOPDFENH_VERSION_NUM,
 			);
 			if ( ! get_option( 'wpptopdfenh' ) ) {
