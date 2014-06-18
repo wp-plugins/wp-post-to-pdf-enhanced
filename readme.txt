@@ -4,8 +4,8 @@ Contributors: LewisR, qlstudio
 Donate Link: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
 Tags: pdf, post, posts, post to pdf, tcpdf, printable, content, convert, stand-alone, stand alone, acrobat
 Requires at least: 2.7
-Tested up to: 3.8.1
-Stable tag: 1.0.4
+Tested up to: 3.9.1
+Stable tag: 1.0.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,15 +27,9 @@ For detailed documentation visit [the support page] http://www.2rosenthals.net/w
 
 == Frequently Asked Questions ==
 
-= I'm using a release version now, but want to try a development version. What is the best way for me to retain my settings? =
-
-While an upgrade facility is under development, it is not yet ready for use. Therefor, the recommended method for installing a development (trunk or branch) build is to do the following:
-
-If you have database access, before installing a development build, export the contents of the wpptopdfenh row in the wp_options table, install the development version, and then copy/paste your prior settings back into the database as you want them, being careful not to overwrite any of the new options with their default values.
-
 = I've been using the original WP Post to PDF plugin. How do I migrate my settings to WP Post to PDF Enhanced? =
 
-Presently, there is no automated way of migrating options from one plugin to the other.
+Presently, there is no automated way of migrating optioins from one plugin to the other.
 
 If you have database access, before installing WP Post to PDF Enhanced, create a new row in the `wp_options` table. Assign a unique `option_id` value, set the `option_name` to `wpptopdfenh`, and copy the contents of the `wpptopdf option_value` field to the new `wpptopdfenh option_value` field. You may need to edit any path references referencing `/wp-post-to-pdf` to `/wp-post-to-pdf-enhanced`.
 
@@ -76,39 +70,10 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 == Changelog ==
 
-= 1.1.0 (development) =
+= 1.0.5 =
 
-* Fixed issue where we were updating phantom page/post when nav-menu admin page save button was pressed.
-* Added ability to specify custom bullet list symbol image file.
-* Added shortcode to overriding automatic LTR / RTL for text between opening & closing shortcode (not working yet).
-* Added shortcode to insert TCPDF method in-line.
-* Added ability to create custom footer (visible only in PDF); implemented admin panel options for this. Footer is stored in the db.
-* Added ability to specify left, right, and top margins for content, as well as header and footer margins.
-* Added option to completely suppress the header; changed admin UI to dropdown for header options.
-* Added options for page format (size; default is now LETTER), orientation (default is portrait), and unit of measurement (default is mm).
-* Added plugin version to database to better facilitate upgrades.
-* Worked around difficulty rendering SVG images by removing them. Currently, we hardcode "[ SVG: alternate text ]" for the replacement; the link stays active.
-* More work to try to get images aligned properly (still in progress).
-* Reworked admin area to provide better organization of options.
-* Code cleanup: Major cleanup with wp-phptidy (new version; see http://www.2rosenthals.net/wordpress/wp-phptidy) to better conform to WP coding standards and best practices.
-* Code cleanup: Renamed constant stems to "WPPTOPDF" from "WPPT0PDF".
-* Updated TCPDF to 6.0.062.
-* To-do: Add option to specify custom header.
-* To-do: Shortcode - Allow for hiding text from PDF.
-* To-do: Add option to allow for content to be added outside the link tag for the PDF icon/link.
-* To-do: Add option to mask "Categories: ", "Tags: ", "Author: ", etc. titles.
-* To-do: Implement upgrade facility to retain existing settings and add new db options; convert existing options to newer format/labels.
-* To-do: Shortcode - Allow different icon for shortcode.
-* To-do: Shortcode - Allow arguments for shortcodes (fonts, external css, other options).
-* To-do: Implement filter to strip shortcodes (when Process Shortcodes is deselected) /except/ for our shortcodes.
-* To-do: Fix (once and for all) image alignment issues.
-* To-do: Add option to change formatting of tags & categories from links to plain text.
-* To-do: Add option to include custom fields in header.
-* To-do: Allow limiting category list to just the first category; allow for relocating this to footer, left, right, center).
-* To-do: Allow limiting tag list to just the first tag; allow for relocating this to footer, left, right, center).
-* To-do: Add option to specify the separator in a list of categories & list of tags.
-* To-do: Add option to remove paragraph break between author, categories, tags, date (to format better and waste less vertical space).
-* To-do: Shortcode - Allow exception to site-wide image scaling factor (and add other shortcodes as overrides for various options set in the admin panel).
+* Fixed issue where we were attempting to save/update phantom post/page when in admin area and save button was pressed. This triggered a "Warning: Creating default object from empty value in /home/{site root}/public_html/wp-content/plugins/wp-post-to-pdf-enhanced/wp-post-to-pdf-enhanced.php on line ###" which could only happen if we were trying to update a cached pdf.
+* Applied WP-phptidy cleanup to php (see http://www.2rosenthals.net/wordpress/help/general-help/wp-phptidy-a-tool-to-clean-up-wordpress-plugin-and-theme-code for details).
 
 = 1.0.4 =
 
@@ -163,9 +128,9 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 == Upgrade Notice ==
 
-= 1.0.3 =
+= 1.0.5 =
 
-Shortcodes were dependent upon the has_shortcode() function in the WordPress CODEX. Unfortunately, this was just introduced in WordPres 3.6, so utilizing it effectively broke Wp post to PDF Enhanced for all versions of WP prior to 3.6. This is now fixed to be backward compatible.
+Resolved nasty issue seen by some sites where saving/updating in admin area caused error message to be thrown.
 
 = 1.0.0 =
 
