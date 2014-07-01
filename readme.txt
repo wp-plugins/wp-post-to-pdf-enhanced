@@ -51,6 +51,10 @@ WP Post to PDF Enhanced is a wrapper for the TCPDF library, which does all the h
 
 See the previous entry. Missing graphics and such are common symptoms of non-standard HTML preceding the image, causing TCPDF to simply stop processing the input data.
 
+= When I try to download my PDF, I get a 0-length file. What could be causing this? =
+
+Other plugins can cause difficulty for WP Post to PDF Enhanced. This is particularly true for plugins which filter output to the browser. A known conflict is with NextGen Gallery. Try adding `add_filter( 'run_ngg_resource_manager', '__return_false' );` to your theme's functions.php as a workaround. The same technique may be useful for other plugins (though some detective work will be necessary to determine which function needs to be filtered).
+
 = Non-English characters (Cyrillic, etc.) are shown as "?" in the PDF. What's wrong? =
 
 The default fonts used are Helvetica, which is a core (built into most PDF viewers) font, but not a Unicode font. This avoids downloading the entire font package. However, if you find that your text is not rendering, try a DejaVu font first, before reporting this as a bug. You may set this in the options panel.
