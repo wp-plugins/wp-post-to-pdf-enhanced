@@ -3,7 +3,7 @@
  * Plugin Name: WP Post to PDF Enhanced
  * Plugin URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
  * Description: WP Post to PDF Enhanced, based on the original WP Post to PDF, renders posts & pages as downloadable PDFs for archiving and/or printing.
- * Version: 1.1.0b20140425
+ * Version: 1.1.0b20140704
  * License: GPLv2
  * Author: Lewis Rosenthal
  * Author URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
@@ -35,7 +35,7 @@ define( 'WPPTOPDFENH_URL', WP_PLUGIN_URL . '/wp-post-to-pdf-enhanced' );
 define( 'WPPTOPDFENH_BASENAME', plugin_basename( __FILE__ ) );
 define( 'WPPTOPDFENH_CACHE_DIR', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache/' . $blog_id );
 if ( ! defined( 'WPPTOPDFENH_VERSION_NUM' ) ) {
-	define( 'WPPTOPDFENH_VERSION_NUM', '1.1.0b20140425' );
+	define( 'WPPTOPDFENH_VERSION_NUM', '1.1.0' );
 }
 if ( ! class_exists( 'wpptopdfenh' ) ) {
 	class wpptopdfenh {
@@ -65,8 +65,8 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			// First, we need to load $wpdb to access the database
 			global $wpdb;
 			if ( ! isset ( $this->options['pluginVer'] ) )
-				update_option( $this->options['pluginVer'], '1.0.4' );
-			if ( version_compare( WPPTOPDFENH_VERSION_NUM, $this->options['pluginVer'], '<' ) )
+				update_option( $this->options['pluginVer'], '1.0.5' );
+			if ( version_compare( WPPTOPDFENH_VERSION_NUM, $this->options['pluginVer'], '>' ) )
 				$this->on_upgrade();
 		}
 		function on_update_options( $post ) {

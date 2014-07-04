@@ -997,7 +997,7 @@ echo '</select>';
             <th scope="row">Orientation</th>
             <td>
                 <input name="wpptopdfenh[orientation]"
-                       value="P" <?php if ( 'P' == ( $wpptopdfenhopts['orientation'] ) ) echo 'checked="checked"'; ?>
+                       value="P" <?php if ( 'P' == ( $wpptopdfenhopts['orientation'] )  || ! isset( $wpptopdfenhopts['orientation'] ) ) echo 'checked="checked"'; ?>
                        type="radio"/> Portrait&nbsp;&nbsp;&nbsp;
                 <input name="wpptopdfenh[orientation]"
                        value="L" <?php if ( 'L' == ( $wpptopdfenhopts['orientation'] ) ) echo 'checked="checked"'; ?>
