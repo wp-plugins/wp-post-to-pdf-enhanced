@@ -3,7 +3,7 @@
  * Plugin Name: WP Post to PDF Enhanced
  * Plugin URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
  * Description: WP Post to PDF Enhanced, based on the original WP Post to PDF, renders posts & pages as downloadable PDFs for archiving and/or printing.
- * Version: 1.1.0b20140704
+ * Version: 1.1.0b20150424
  * License: GPLv2
  * Author: Lewis Rosenthal
  * Author URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
@@ -280,7 +280,7 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			// set document information
 			$pdf->SetCreator( 'WP Post to PDF Enhanced plugin by Lewis Rosenthal (http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/) with ' . PDF_CREATOR );
 			$pdf->SetAuthor( get_bloginfo( 'name' ) );
-			$pdf->SetTitle( $post->post_title );
+			$pdf->SetTitle( apply_filters( 'the_title', $post->post_title ) );
 			// Count width of logo for better presentation
 			if ( isset( $this->options['headerlogoImage'] ) ) {
 				$logo = ( PDF_HEADER_LOGO );
@@ -460,7 +460,7 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			// This method has several options, check the source code documentation for more information.
 			// Create directory if not exist
 			if ( ! is_dir( WPPTOPDFENH_CACHE_DIR ) ) {
-				mkdir( WPPTOPDFENH_CACHE_DIR );
+				mkdir( WPPTOPDFENH_CACHE_DIR, 0755, true );
 			}
 			if ( $forceDownload ) {
 				$pdf->Output( $filePath, 'FI' );
@@ -512,9 +512,9 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			}
 			// Create link
 			if ( ! is_singular() ) {
-				return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . add_query_arg( 'format', 'pdf', get_permalink( $post->ID ) ) . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+				return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . esc_url( add_query_arg( 'format', 'pdf', get_permalink( $post->ID ) ) ) . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
 			} else {
-				return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . add_query_arg( 'format', 'pdf' ) . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
+				return '<a class="wpptopdfenh" target="_blank" rel="noindex,nofollow" href="' . esc_url( add_query_arg( 'format', 'pdf' ) ) . '" title="Download PDF">' . $this->options['imageIcon'] . '</a>';
 			}
 		}
 		// If the icon shortcode is used, render the icon where positioned in the body (the icon is invisible in the resulting PDF).
@@ -581,13 +581,13 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			}
 			// create directory and move logo to upload directory
 			if ( ! is_dir( WP_CONTENT_DIR . '/uploads' ) ) {
-				mkdir( WP_CONTENT_DIR . '/uploads' );
+				mkdir( WP_CONTENT_DIR . '/uploads', 0755, true );
 			}
 			if ( ! file_exists( WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png' ) ) {
 				copy( WPPTOPDFENH_PATH . '/asset/images/logo.png', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png' );
 			}
 			if ( ! is_dir( WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache' ) ) {
-				mkdir( WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache' );
+				mkdir( WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache', 0755, true );
 			}
 		}
 		function on_upgrade() {

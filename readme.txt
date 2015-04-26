@@ -4,7 +4,7 @@ Contributors: LewisR, qlstudio
 Donate Link: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
 Tags: pdf, post, posts, post to pdf, tcpdf, printable, content, convert, stand-alone, stand alone, acrobat
 Requires at least: 2.7
-Tested up to: 3.9.1
+Tested up to: 4.2
 Stable tag: 1.0.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,13 +66,33 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 == Screenshots ==
 
 1. Main Options page
-2. Accessibility Options (include/exclude content types, posts, pages)
-3. Presentation Options (PDF icon appearance)
-4. PDF Formatting Options (output tuning; accommodate shortcodes from other plugins, what to include in the PDF header area, header image, fonts, etc.)
-5. Sample WordPress page; note PDF icon (top left positioning selected)
-6. Sample PDF (minimal header options; default fonts and sizes)
+2. Include/Exclude Content Types, Posts, Pages; Caching
+3. Icon/Link Presentation options (where the PDF icon should appear)
+4. General options (accommodate shortcodes from other plugins, what to include in the PDF header area, etc.)
+5. Header options (show on all pages, set logo, set header margin)
+6. Body options (featured image inclusion, custom css, custom bullet image, image scaling, etc.)
+7. Footer options (custom footer, size and positioning, border, alignment, footer margin)
+8. Typography (header, footer, body fonts and sizes)
+9. Page Size & Units
+10. Sample WordPress page; note PDF icon (top left positioning selected)
+11. Sample PDF (minimal header options; default fonts and sizes)
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Addressed possible XSS vulnerability as described here: https://blog.sucuri.net/2015/04/security-advisory-xss-vulnerability-affecting-multiple-wordpress-plugins.html.
+* Updated to TCPDF 6.2.6, and all included fonts.
+* Correct title formatting when option set to apply other plugin output (thanks to doublesharp for the suggestion and the code snippet!).
+* Changed options when creating cache directories to set perms to 0755 (thanks to Qobo Ltd for the suggestion and the code snippet!).
+* Reorganized admin panels to improve flow and accommodate additional settings.
+* Added paper size option based upon sizes available in TCPDF.
+* Added custom footer options.
+* Added custom bullet image options (still testing image types and consistency).
+* Added margin options (previously, these were set in TCPDF options file).
+* Improvements (I hope) to image alignment (though still needs work).
+* Initial code to set version in db for use in smoother upgrades.
+* Initial work to preserve existing option settings and add defaults for newly added ones. (This is still under development and not yet functional.)
 
 = 1.0.5 =
 
@@ -132,6 +152,10 @@ You may either use the WordPress Plugin page for WP Post to PDF Enhanced, or the
 
 == Upgrade Notice ==
 
+= 1.1.0 =
+
+Addressed possible XSS vulnerability in conjunction with WP upgrade to 4.2 to address the same issue 9as well as other plugins.
+
 = 1.0.5 =
 
 Resolved nasty issue seen by some sites where saving/updating in admin area caused error message to be thrown.
@@ -139,3 +163,13 @@ Resolved nasty issue seen by some sites where saving/updating in admin area caus
 = 1.0.0 =
 
 Initial public release.
+
+== Upgrading from versions before 1.1.0 ==
+
+1. Make a note of all of your current settings, as they may not be preserved.
+2. If possible, export the wpptopdfenh options from the wp_options table in the database. This is the best way to preserve your existing settings.
+3. Deactivate the existing plugin.
+4. Delete the existing plugin.
+5. Install the new version.
+6. Activate the plugin.
+7. Go to Settings | WP Post to PDF Enhanced and verify/re-enter your settings from the previous version.
