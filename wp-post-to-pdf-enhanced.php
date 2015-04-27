@@ -367,8 +367,8 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			if ( $this->options['applyCSS'] ) {
 				$html .= '<style>'.$this->options['customCss'].'</style>';
 			}
-			// Set some content to print
-			$html .= '<h1>' . html_entity_decode( $post->post_title, ENT_QUOTES ) . '</h1>';
+			// Set some content to print, and allow processing of the page title by other means
+			$html .= apply_filters( 'wp_pdf_page_title', '<h1>' . html_entity_decode( apply_filters( 'the_title', $post->post_title ), ENT_QUOTES ) . '</h1>' );
 			// Display author name is set in config
 			if ( isset( $this->options['authorDetail'] ) and ! $this->options['authorDetail'] == '' ) {
 				$author = get_the_author_meta( $this->options['authorDetail'], $post->post_author );
