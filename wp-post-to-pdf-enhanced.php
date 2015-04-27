@@ -3,7 +3,7 @@
  * Plugin Name: WP Post to PDF Enhanced
  * Plugin URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
  * Description: WP Post to PDF Enhanced, based on the original WP Post to PDF, renders posts & pages as downloadable PDFs for archiving and/or printing.
- * Version: 1.1.0
+ * Version: 1.1.2b20150427
  * License: GPLv2
  * Author: Lewis Rosenthal
  * Author URI: http://www.2rosenthals.net/wordpress/help/general-help/wp-post-to-pdf-enhanced/
@@ -370,7 +370,7 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			// Set some content to print
 			$html .= '<h1>' . html_entity_decode( $post->post_title, ENT_QUOTES ) . '</h1>';
 			// Display author name is set in config
-			if ( isset( $this->options['authorDetail'] ) ) {
+			if ( isset( $this->options['authorDetail'] ) and ! $this->options['authorDetail'] == '' ) {
 				$author = get_the_author_meta( $this->options['authorDetail'], $post->post_author );
 				$html .= '<p><strong>Author : </strong>'.$author.'</p>';
 			}
@@ -460,7 +460,7 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			// This method has several options, check the source code documentation for more information.
 			// Create directory if not exist
 			if ( ! is_dir( WPPTOPDFENH_CACHE_DIR ) ) {
-				mkdir( WPPTOPDFENH_CACHE_DIR, 0755, true );
+				mkdir( WPPTOPDFENH_CACHE_DIR, 0777, true );
 			}
 			if ( $forceDownload ) {
 				$pdf->Output( $filePath, 'FI' );
@@ -581,13 +581,13 @@ if ( ! class_exists( 'wpptopdfenh' ) ) {
 			}
 			// create directory and move logo to upload directory
 			if ( ! is_dir( WP_CONTENT_DIR . '/uploads' ) ) {
-				mkdir( WP_CONTENT_DIR . '/uploads', 0755, true );
+				mkdir( WP_CONTENT_DIR . '/uploads', 0777, true );
 			}
 			if ( ! file_exists( WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png' ) ) {
 				copy( WPPTOPDFENH_PATH . '/asset/images/logo.png', WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-logo.png' );
 			}
 			if ( ! is_dir( WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache' ) ) {
-				mkdir( WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache', 0755, true );
+				mkdir( WP_CONTENT_DIR . '/uploads/wp-post-to-pdf-enhanced-cache', 0777, true );
 			}
 		}
 		function on_upgrade() {
